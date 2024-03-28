@@ -1,3 +1,3 @@
 # Foco
 
-Focus timer app to minimize productivity. By Team 16.
+Focus timer app to maximize productivity. By Team 16.
