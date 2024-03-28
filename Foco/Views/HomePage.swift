@@ -30,27 +30,32 @@ struct HeaderView: View {
 struct CardsView: View {
     var body: some View {
         HStack {
-            CardView(text: "This week's\ntask completed")
-            CardView(text: "Distraction\ntime")
+            CardView(textUpper: "Tasks completed this week", textBottom: "27")
+            CardView(textUpper: "Distraction time this week", textBottom: "02:41:36")
         }
         .padding(.vertical)
     }
 }
 
 struct CardView: View {
-    let text: String
+    let textUpper: String
+    let textBottom: String
     
     var body: some View {
-        VStack {
-            Text(text)
+        VStack(alignment: .leading) {
+            Text(textUpper)
                 .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.black)
-                .padding()
-                .frame(maxWidth: .infinity, minHeight: 100)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(20)
-        }
+                .foregroundColor(.black.opacity(0.5))
+                .padding(.top, 20)
+            Text(textBottom)
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .padding(.top, 2)
+                .padding(.bottom, 20)
+            }
+            .frame(maxWidth: .infinity, minHeight: 100)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(20)
+
 	    }
 }
 
