@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF32BB5198D00488178 /* FocoApp.swift */; };
+		E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF52BB5198D00488178 /* ContentView.swift */; };
+		E61BDBF82BB5198D00488178 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF72BB5198D00488178 /* Item.swift */; };
+		E61BDBFA2BB5199100488178 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E61BDBF92BB5199100488178 /* Assets.xcassets */; };
+		E61BDBFD2BB5199100488178 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E61BDBFC2BB5199100488178 /* Preview Assets.xcassets */; };
+		E61BDC072BB5199100488178 /* FocoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC062BB5199100488178 /* FocoTests.swift */; };
+		E61BDC112BB5199100488178 /* FocoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC102BB5199100488178 /* FocoUITests.swift */; };
+		E61BDC132BB5199100488178 /* FocoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E61BDC032BB5199100488178 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E61BDBE82BB5198D00488178 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E61BDBEF2BB5198D00488178;
+			remoteInfo = Foco;
+		};
+		E61BDC0D2BB5199100488178 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E61BDBE82BB5198D00488178 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E61BDBEF2BB5198D00488178;
+			remoteInfo = Foco;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E61BDBF02BB5198D00488178 /* Foco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foco.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E61BDBF32BB5198D00488178 /* FocoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoApp.swift; sourceTree = "<group>"; };
+		E61BDBF52BB5198D00488178 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E61BDBF72BB5198D00488178 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		E61BDBF92BB5199100488178 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E61BDBFC2BB5199100488178 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E61BDC022BB5199100488178 /* FocoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E61BDC062BB5199100488178 /* FocoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoTests.swift; sourceTree = "<group>"; };
+		E61BDC0C2BB5199100488178 /* FocoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E61BDC102BB5199100488178 /* FocoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoUITests.swift; sourceTree = "<group>"; };
+		E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E61BDBED2BB5198D00488178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDBFF2BB5199100488178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDC092BB5199100488178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E61BDBE72BB5198D00488178 = {
+			isa = PBXGroup;
+			children = (
+				E61BDBF22BB5198D00488178 /* Foco */,
+				E61BDC052BB5199100488178 /* FocoTests */,
+				E61BDC0F2BB5199100488178 /* FocoUITests */,
+				E61BDBF12BB5198D00488178 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E61BDBF12BB5198D00488178 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E61BDBF02BB5198D00488178 /* Foco.app */,
+				E61BDC022BB5199100488178 /* FocoTests.xctest */,
+				E61BDC0C2BB5199100488178 /* FocoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E61BDBF22BB5198D00488178 /* Foco */ = {
+			isa = PBXGroup;
+			children = (
+				E61BDBF32BB5198D00488178 /* FocoApp.swift */,
+				E61BDBF52BB5198D00488178 /* ContentView.swift */,
+				E61BDBF72BB5198D00488178 /* Item.swift */,
+				E61BDBF92BB5199100488178 /* Assets.xcassets */,
+				E61BDBFB2BB5199100488178 /* Preview Content */,
+			);
+			path = Foco;
+			sourceTree = "<group>";
+		};
+		E61BDBFB2BB5199100488178 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E61BDBFC2BB5199100488178 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E61BDC052BB5199100488178 /* FocoTests */ = {
+			isa = PBXGroup;
+			children = (
+				E61BDC062BB5199100488178 /* FocoTests.swift */,
+			);
+			path = FocoTests;
+			sourceTree = "<group>";
+		};
+		E61BDC0F2BB5199100488178 /* FocoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E61BDC102BB5199100488178 /* FocoUITests.swift */,
+				E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */,
+			);
+			path = FocoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E61BDBEF2BB5198D00488178 /* Foco */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E61BDC162BB5199100488178 /* Build configuration list for PBXNativeTarget "Foco" */;
+			buildPhases = (
+				E61BDBEC2BB5198D00488178 /* Sources */,
+				E61BDBED2BB5198D00488178 /* Frameworks */,
+				E61BDBEE2BB5198D00488178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Foco;
+			productName = Foco;
+			productReference = E61BDBF02BB5198D00488178 /* Foco.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E61BDC012BB5199100488178 /* FocoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E61BDC192BB5199100488178 /* Build configuration list for PBXNativeTarget "FocoTests" */;
+			buildPhases = (
+				E61BDBFE2BB5199100488178 /* Sources */,
+				E61BDBFF2BB5199100488178 /* Frameworks */,
+				E61BDC002BB5199100488178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E61BDC042BB5199100488178 /* PBXTargetDependency */,
+			);
+			name = FocoTests;
+			productName = FocoTests;
+			productReference = E61BDC022BB5199100488178 /* FocoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E61BDC0B2BB5199100488178 /* FocoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E61BDC1C2BB5199100488178 /* Build configuration list for PBXNativeTarget "FocoUITests" */;
+			buildPhases = (
+				E61BDC082BB5199100488178 /* Sources */,
+				E61BDC092BB5199100488178 /* Frameworks */,
+				E61BDC0A2BB5199100488178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E61BDC0E2BB5199100488178 /* PBXTargetDependency */,
+			);
+			name = FocoUITests;
+			productName = FocoUITests;
+			productReference = E61BDC0C2BB5199100488178 /* FocoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E61BDBE82BB5198D00488178 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					E61BDBEF2BB5198D00488178 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					E61BDC012BB5199100488178 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = E61BDBEF2BB5198D00488178;
+					};
+					E61BDC0B2BB5199100488178 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = E61BDBEF2BB5198D00488178;
+					};
+				};
+			};
+			buildConfigurationList = E61BDBEB2BB5198D00488178 /* Build configuration list for PBXProject "Foco" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E61BDBE72BB5198D00488178;
+			productRefGroup = E61BDBF12BB5198D00488178 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E61BDBEF2BB5198D00488178 /* Foco */,
+				E61BDC012BB5199100488178 /* FocoTests */,
+				E61BDC0B2BB5199100488178 /* FocoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E61BDBEE2BB5198D00488178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E61BDBFD2BB5199100488178 /* Preview Assets.xcassets in Resources */,
+				E61BDBFA2BB5199100488178 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDC002BB5199100488178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDC0A2BB5199100488178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E61BDBEC2BB5198D00488178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
+				E61BDBF82BB5198D00488178 /* Item.swift in Sources */,
+				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDBFE2BB5199100488178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E61BDC072BB5199100488178 /* FocoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E61BDC082BB5199100488178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E61BDC112BB5199100488178 /* FocoUITests.swift in Sources */,
+				E61BDC132BB5199100488178 /* FocoUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E61BDC042BB5199100488178 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E61BDBEF2BB5198D00488178 /* Foco */;
+			targetProxy = E61BDC032BB5199100488178 /* PBXContainerItemProxy */;
+		};
+		E61BDC0E2BB5199100488178 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E61BDBEF2BB5198D00488178 /* Foco */;
+			targetProxy = E61BDC0D2BB5199100488178 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E61BDC142BB5199100488178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E61BDC152BB5199100488178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E61BDC172BB5199100488178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Foco/Preview Content\"";
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.Foco;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E61BDC182BB5199100488178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Foco/Preview Content\"";
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.Foco;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E61BDC1A2BB5199100488178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.FocoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Foco.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Foco";
+			};
+			name = Debug;
+		};
+		E61BDC1B2BB5199100488178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.FocoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Foco.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Foco";
+			};
+			name = Release;
+		};
+		E61BDC1D2BB5199100488178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.FocoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Foco;
+			};
+			name = Debug;
+		};
+		E61BDC1E2BB5199100488178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.FocoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Foco;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E61BDBEB2BB5198D00488178 /* Build configuration list for PBXProject "Foco" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E61BDC142BB5199100488178 /* Debug */,
+				E61BDC152BB5199100488178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E61BDC162BB5199100488178 /* Build configuration list for PBXNativeTarget "Foco" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E61BDC172BB5199100488178 /* Debug */,
+				E61BDC182BB5199100488178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E61BDC192BB5199100488178 /* Build configuration list for PBXNativeTarget "FocoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E61BDC1A2BB5199100488178 /* Debug */,
+				E61BDC1B2BB5199100488178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E61BDC1C2BB5199100488178 /* Build configuration list for PBXNativeTarget "FocoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E61BDC1D2BB5199100488178 /* Debug */,
+				E61BDC1E2BB5199100488178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E61BDBE82BB5198D00488178 /* Project object */;
+}
