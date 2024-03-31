@@ -95,8 +95,13 @@ struct TaskDetailPage: View {
     }
     
     func editTask() {
-        // TODO
-        
+        let thisTask = self.getExistingTask()
+        thisTask.title = title
+        thisTask.desc = description
+        thisTask.startDate = startDate
+        thisTask.endDate = endDate
+        thisTask.isDone = isDone
+        dismiss()
     }
     
     func deleteTask() {
