@@ -189,7 +189,7 @@ struct TaskItemView: View {
             Rectangle()
                 .frame(width: 8, height: 50)
                 .cornerRadius(2)
-                .foregroundColor(Color.green)
+                .foregroundColor(taskItem.isDone ? Color.green : Color.yellow)
             VStack(alignment: .leading) {
                 Text(taskItem.title)
                     .fontWeight(.medium)

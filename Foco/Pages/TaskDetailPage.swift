@@ -22,6 +22,8 @@ struct TaskDetailPage: View {
     @State private var description = ""
     @State private var isDone = false
     
+    @State private var errorMessage = ""
+    
     var body: some View {
         NavigationView {
             Form {
@@ -61,6 +63,14 @@ struct TaskDetailPage: View {
                         }
                     }.listRowSeparator(.hidden)
                 }
+                
+                if !errorMessage.isEmpty {
+                    Section(header: Text("Error")) {
+                        Text("\(errorMessage)")
+                            .foregroundColor(.red)
+                    }
+                }
+                
             }
             .navigationBarTitle("Task", displayMode: .inline)
             .onAppear {
@@ -89,12 +99,20 @@ struct TaskDetailPage: View {
     }
     
     func addTask() {
+        if checkIsError() {
+            return
+        }
+        
         let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
         modelContext.insert(newTask)
         dismiss()
     }
     
     func editTask() {
+        if checkIsError() {
+            return
+        }
+        
         let thisTask = self.getExistingTask()
         thisTask.title = title
         thisTask.desc = description
@@ -108,6 +126,18 @@ struct TaskDetailPage: View {
         let thisTask = self.getExistingTask()
         modelContext.delete(thisTask)
         dismiss()
+    }
+    
+    func checkIsError() -> Bool {
+        if title.isEmpty {
+            errorMessage = "Title must not empty!"
+            return true
+        }
+        if startDate >= endDate {
+            errorMessage = "End Date must after Start Date!"
+            return true
+        }
+        return false
     }
     
 }
