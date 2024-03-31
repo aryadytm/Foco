@@ -2,24 +2,26 @@ import SwiftUI
 import SwiftData
 
 struct TaskListPage: View {
+    @Query private var taskItems: [TaskItem]
+    
+    @State private var selectedDate: Date = Date()
+
     let welcomeName: String = "Arya"
     
     var currentDate: String {
         "It's \(getCurrentDateStr())"
     }
     
-    var tasksCompleted: String = "0 / 0"
-    var distractionTime: String = "00:00:00"
+    var tasksCompleted: String {
+        "\(taskItems.filter { $0.isDone && isDateInCurrentWeek($0.startDate) }.count) / \(taskItems.filter { isDateInCurrentWeek($0.startDate) }.count)"
+    }
+    var distractionTime: String = "0h 0m"
     
 //    let taskItems: [TaskItem] = [
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
 //    ]
-    
-    @State private var selectedDate: Date = Date()
-    
-    @Query private var taskItems: [TaskItem]
 
     var body: some View {
         NavigationView {
@@ -29,6 +31,10 @@ struct TaskListPage: View {
                     .padding(.top)
                 CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
                     .padding(.horizontal)
+                Text("This week")
+                    .font(.caption)
+                    .padding(.horizontal)
+                   
                 WeekDaysView(selectedDate: $selectedDate)
                     .padding(.horizontal)
                 TasksView(taskItems: getTaskItemsBySelectedDateDay())
@@ -54,6 +60,12 @@ struct TaskListPage: View {
         dateFormatter.dateFormat = "EEEE, d MMMM"
         let formattedDate = dateFormatter.string(from: currentDate)
         return formattedDate
+    }
+    
+    func isDateInCurrentWeek(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        guard let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start else { return false }
+        return date >= startOfWeek && date <= Date()
     }
     
 }
@@ -177,12 +189,12 @@ struct WeekDaysView: View {
                                 .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
                         }
                         .background(Color.gray.opacity(0.1))
-                    .cornerRadius(15)
+                        .cornerRadius(15)
                     }
                 }
             }
         }
-        .padding(.vertical)
+        .padding(.bottom)
     }
     
     func getCurrentDayOfMonth() -> Int {
