@@ -4,16 +4,21 @@ import SwiftData
 struct TaskListPage: View {
     let welcomeName: String = "Arya"
     
-    @State var currentDate: String = "It's"
-    @State var tasksCompleted: String = "27 / 40"
-    @State var distractionTime: String = "02:41:36"
-    @State var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
+    var currentDate: String {
+        "It's \(getCurrentDateStr())"
+    }
+    
+    var tasksCompleted: String = "0 / 0"
+    var distractionTime: String = "00:00:00"
+    var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
     
 //    let taskItems: [TaskItem] = [
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
 //    ]
+    
+    @State private var selectedDate: Date = Date()
     
     @Query private var taskItems: [TaskItem]
 
@@ -25,13 +30,13 @@ struct TaskListPage: View {
                     .padding(.top)
                 CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
                     .padding(.horizontal)
-                WeekDaysView(days: days)
+                WeekDaysView(selectedDate: $selectedDate)
                     .padding(.horizontal)
                 TaskView(taskItems: taskItems)
             }
         }
         .onAppear {
-            currentDate = "It's \(getCurrentDateStr())"
+            
         }
     }
     
@@ -113,27 +118,75 @@ struct CardView: View {
 }
 
 struct WeekDaysView: View {
-    let days: [String]
+    @Binding var selectedDate: Date
+    
+    var selectedDayOfMonth: Int {
+        let calendar = Calendar.current
+        return calendar.component(.day, from: selectedDate)
+    }
+    
+    var days: [Day] {
+        var weekDays = [Day]()
+        let calendar = Calendar.current
+        let today = Date()
+        let weekDay = calendar.component(.weekday, from: today)
+        
+        let daysToAdd = 1 - weekDay
+        let startOfWeek = calendar.date(byAdding: .day, value: daysToAdd, to: today)!
+        
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
+                let weekDayName = calendar.shortWeekdaySymbols[i]
+                let dayOfMonthInt = calendar.component(.day, from: date)
+                weekDays.append(Day(date: date, dayName: weekDayName, dayOfMonthInt: dayOfMonthInt))
+            }
+        }
+        
+        return weekDays
+    }
+    
+    var currentDayOfMonth: Int {
+        getCurrentDayOfMonth()
+    }
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(days.indices, id: \.self) { index in
-                    VStack {
-                        Text(String(index + 1))
-                            .fontWeight(.bold)
-                            .padding(.top, 10)
-                            .padding(.horizontal, 20)
-                        Text(days[index])
-                            .font(.caption)
-                            .padding(.bottom, 10)
-                    }
-                    .background(Color.gray.opacity(0.1))
+                    Button {
+                        selectedDate = days[index].date
+                    } label: {
+                        VStack {
+                            Text(String(days[index].dayOfMonthInt))
+                                .fontWeight(.bold)
+                                .padding(.top, 10)
+                                .padding(.horizontal, 15)
+                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
+                            Text(days[index].dayName)
+                                .font(.caption)
+                                .padding(.bottom, 10)
+                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
+                        }
+                        .background(Color.gray.opacity(0.1))
                     .cornerRadius(15)
+                    }
                 }
             }
         }
         .padding(.vertical)
+    }
+    
+    func getCurrentDayOfMonth() -> Int {
+        let today = Date()
+        let calendar = Calendar.current
+        let dayOfMonth = calendar.component(.day, from: today)
+        return dayOfMonth
+    }
+    
+    struct Day {
+        let date: Date
+        let dayName: String
+        let dayOfMonthInt: Int
     }
 }
 
@@ -219,13 +272,6 @@ struct TaskItemView: View {
         return clockFormatter.string(from: date)
     }
     
-}
-
-struct ScheduleItemModel: Identifiable, Hashable {
-    let id = UUID()
-    let time: String
-    let title: String
-    let duration: String
 }
 
 // Previews
