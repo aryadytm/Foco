@@ -40,6 +40,7 @@
 /* Begin PBXFileReference section */
 		E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailPage.swift; sourceTree = "<group>"; };
+		E60CDDF92BB9643A00E2E50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E61BDBF02BB5198D00488178 /* Foco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E61BDBF32BB5198D00488178 /* FocoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoApp.swift; sourceTree = "<group>"; };
 		E61BDBF52BB5198D00488178 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		E61BDBF22BB5198D00488178 /* Foco */ = {
 			isa = PBXGroup;
 			children = (
+				E60CDDF92BB9643A00E2E50E /* Info.plist */,
 				E61BDC262BB7E1A300488178 /* Pages */,
 				E61BDC1F2BB519CC00488178 /* Views */,
 				E61BDC202BB519D700488178 /* Model */,
@@ -465,6 +467,7 @@
 				DEVELOPMENT_TEAM = J4KR4C3C23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Foco/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -494,6 +497,7 @@
 				DEVELOPMENT_TEAM = J4KR4C3C23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Foco/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

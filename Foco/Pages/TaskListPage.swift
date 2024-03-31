@@ -64,8 +64,11 @@ struct TaskListPage: View {
     
     func isDateInCurrentWeek(_ date: Date) -> Bool {
         let calendar = Calendar.current
-        guard let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start else { return false }
-        return date >= startOfWeek && date <= Date()
+        guard let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start,
+              let endOfWeek = calendar.date(byAdding: .second, value: -1, to: calendar.dateInterval(of: .weekOfYear, for: Date())!.end) else {
+            return false
+        }
+        return date >= startOfWeek && date <= endOfWeek
     }
     
 }
