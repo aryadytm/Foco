@@ -21,7 +21,6 @@ struct TaskDetailPage: View {
     @State private var title = ""
     @State private var description = ""
     @State private var isDone = false
-    
     @State private var errorMessage = ""
     
     var body: some View {
@@ -29,7 +28,8 @@ struct TaskDetailPage: View {
             Form {
                 Section(header: Text("Task Details")) {
                     TextField("Title", text: $title)
-                    TextField("Description", text: $description)
+                    TextField("Description", text: $description, axis: .vertical)
+                        .lineLimit(3...10)
                 }
                 
                 Section(header: Text("Dates")) {
@@ -130,11 +130,11 @@ struct TaskDetailPage: View {
     
     func checkIsError() -> Bool {
         if title.isEmpty {
-            errorMessage = "Title must not empty!"
+            errorMessage = "Title must not be empty!"
             return true
         }
         if startDate >= endDate {
-            errorMessage = "End Date must after Start Date!"
+            errorMessage = "End Date must be after Start Date!"
             return true
         }
         return false

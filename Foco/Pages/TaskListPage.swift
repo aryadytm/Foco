@@ -3,16 +3,11 @@ import SwiftData
 
 struct TaskListPage: View {
     let welcomeName: String = "Arya"
-    let currentDate: String = "It's Saturday, 1 March"
-    let tasksCompleted: String = "27 / 40"
-    let distractionTime: String = "02:41:36"
-    let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
     
-//    let scheduleItems: [ScheduleItemModel] = [
-//        ScheduleItemModel(time: "09:30", title: "Math: Linear Algebra", duration: "9:30 AM - 11:00 AM"),
-//        ScheduleItemModel(time: "11:30", title: "Science: Chemistry", duration: "11:30 AM - 1:00 PM"),
-//        ScheduleItemModel(time: "02:00", title: "History: World War II", duration: "2:00 PM - 3:30 PM")
-//    ]
+    @State var currentDate: String = "It's"
+    @State var tasksCompleted: String = "27 / 40"
+    @State var distractionTime: String = "02:41:36"
+    @State var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
     
 //    let taskItems: [TaskItem] = [
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
@@ -23,7 +18,6 @@ struct TaskListPage: View {
     @Query private var taskItems: [TaskItem]
 
     var body: some View {
-        
         NavigationView {
             VStack(alignment: .leading) {
                 HeaderView(welcomeName: welcomeName, currentDate: currentDate)
@@ -36,7 +30,19 @@ struct TaskListPage: View {
                 TaskView(taskItems: taskItems)
             }
         }
+        .onAppear {
+            currentDate = "It's \(getCurrentDateStr())"
+        }
     }
+    
+    func getCurrentDateStr() -> String {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, d MMMM"
+        let formattedDate = dateFormatter.string(from: currentDate)
+        return formattedDate
+    }
+    
 }
 
 struct HeaderView: View {
