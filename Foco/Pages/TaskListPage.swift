@@ -10,7 +10,6 @@ struct TaskListPage: View {
     
     var tasksCompleted: String = "0 / 0"
     var distractionTime: String = "00:00:00"
-    var days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
     
 //    let taskItems: [TaskItem] = [
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
@@ -32,11 +31,20 @@ struct TaskListPage: View {
                     .padding(.horizontal)
                 WeekDaysView(selectedDate: $selectedDate)
                     .padding(.horizontal)
-                TaskView(taskItems: taskItems)
+                TasksView(taskItems: getTaskItemsBySelectedDateDay())
             }
         }
         .onAppear {
             
+        }
+    }
+    
+    func getTaskItemsBySelectedDateDay() -> [TaskItem] {
+        let calendar = Calendar.current
+        return taskItems.filter { taskItem in
+            let taskStartDate = calendar.startOfDay(for: taskItem.startDate)
+            let selectedDateStart = calendar.startOfDay(for: selectedDate)
+            return taskStartDate == selectedDateStart
         }
     }
     
@@ -155,6 +163,7 @@ struct WeekDaysView: View {
                 ForEach(days.indices, id: \.self) { index in
                     Button {
                         selectedDate = days[index].date
+                        print(selectedDate)
                     } label: {
                         VStack {
                             Text(String(days[index].dayOfMonthInt))
@@ -190,7 +199,7 @@ struct WeekDaysView: View {
     }
 }
 
-struct TaskView: View {
+struct TasksView: View {
     let taskItems: [TaskItem]
     
     var body: some View {
@@ -274,9 +283,7 @@ struct TaskItemView: View {
     
 }
 
-// Previews
-struct HomePage_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskListPage()
-    }
+#Preview {
+    TaskListPage()
+        .modelContainer(for: TaskItem.self, inMemory: true)
 }
