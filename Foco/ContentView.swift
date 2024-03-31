@@ -8,7 +8,22 @@
 import SwiftUI
 import SwiftData
 
+
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var items: [TaskItem]
+    
+    var body: some View {
+        TaskListPage()
+    }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(for: TaskItem.self, inMemory: true)
+}
+
+struct ExampleContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
@@ -55,7 +70,7 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
-}
+//#Preview {
+//    ContentView()
+//        .modelContainer(for: Item.self, inMemory: true)
+//}

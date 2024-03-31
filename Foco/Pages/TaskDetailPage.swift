@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskDetailPage: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
     @State private var startDate = Date()
@@ -26,7 +27,7 @@ struct TaskDetailPage: View {
                 
                 Section(header: Text("Dates")) {
                     DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
-                    DatePicker("End Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
+                    DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
                 }
                 
                 Section {
@@ -42,13 +43,14 @@ struct TaskDetailPage: View {
                     }
                 }
             }
-            .navigationBarTitle("My Task", displayMode: .inline)
+            .navigationBarTitle("Task", displayMode: .inline)
         }
     }
     
     func addTodo() {
-        var newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
+        let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
         modelContext.insert(newTask)
+        dismiss()
         print("Task Added: \(title)")
     }
 }

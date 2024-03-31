@@ -1,32 +1,40 @@
 import SwiftUI
+import SwiftData
 
 struct TaskListPage: View {
     let welcomeName: String = "Arya"
-    let currentDate: String = "It's Saturday, 23 March"
+    let currentDate: String = "It's Saturday, 1 March"
     let tasksCompleted: String = "27"
     let distractionTime: String = "02:41:36"
     let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
-    let scheduleItems: [ScheduleItemModel] = [
-        ScheduleItemModel(time: "09:30", title: "Math: Linear Algebra", duration: "9:30 AM - 11:00 AM"),
-        ScheduleItemModel(time: "11:30", title: "Science: Chemistry", duration: "11:30 AM - 1:00 PM"),
-        ScheduleItemModel(time: "02:00", title: "History: World War II", duration: "2:00 PM - 3:30 PM")
-    ]
+    
+//    let scheduleItems: [ScheduleItemModel] = [
+//        ScheduleItemModel(time: "09:30", title: "Math: Linear Algebra", duration: "9:30 AM - 11:00 AM"),
+//        ScheduleItemModel(time: "11:30", title: "Science: Chemistry", duration: "11:30 AM - 1:00 PM"),
+//        ScheduleItemModel(time: "02:00", title: "History: World War II", duration: "2:00 PM - 3:30 PM")
+//    ]
+    
 //    let taskItems: [TaskItem] = [
 //        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
+//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
+//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
 //    ]
+    
+    @Query private var taskItems: [TaskItem]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HeaderView(welcomeName: welcomeName, currentDate: currentDate)
-                .padding(.horizontal)
-                .padding(.top)
-            CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
-                .padding(.horizontal)
-            WeekDaysView(days: days)
-                .padding(.horizontal)
-            ScheduleView(scheduleItems: scheduleItems)
+        
+        NavigationView {
+            VStack(alignment: .leading) {
+                HeaderView(welcomeName: welcomeName, currentDate: currentDate)
+                    .padding(.horizontal)
+                    .padding(.top)
+                CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
+                    .padding(.horizontal)
+                WeekDaysView(days: days)
+                    .padding(.horizontal)
+                ScheduleView(taskItems: taskItems)
+            }
         }
     }
 }
@@ -47,12 +55,11 @@ struct HeaderView: View {
             }
             
             Spacer()
-            
-            Button() {
-                
+                        
+            NavigationLink {
+                TaskDetailPage()
             } label: {
-                Text("+")
-                    .font(.largeTitle)
+                Image(systemName: "plus")
                     .frame(width: 40, height: 40)
                     .background(Color.blue)
                     .foregroundColor(.white)
@@ -125,7 +132,7 @@ struct WeekDaysView: View {
 }
 
 struct ScheduleView: View {
-    let scheduleItems: [ScheduleItemModel]
+    let taskItems: [TaskItem]
     
     var body: some View {
         ScrollView {
@@ -133,11 +140,21 @@ struct ScheduleView: View {
                 
                 Text("")
                 
-                ForEach(scheduleItems, id: \.self) { item in
-                    ScheduleItem(time: item.time, title: item.title, duration: item.duration)
+                if taskItems.isEmpty {
+                    Spacer()
+                    Text("You have no tasks.")
+                    HStack {
+                        Spacer()
+                    }
                 }
                 
-                Spacer()
+                ForEach(taskItems, id: \.self) { item in
+                    ScheduleItem(taskItem: item)
+                }
+                
+                if !taskItems.isEmpty {
+                    Spacer()
+                }
             }
         }
         .background(Color.gray.opacity(0.2))
@@ -146,14 +163,12 @@ struct ScheduleView: View {
 }
 
 struct ScheduleItem: View {
-    let time: String
-    let title: String
-    let duration: String
+    let taskItem: TaskItem
     
     var body: some View {
         HStack {
             ZStack {
-                Text(time)
+                Text(getClock(date: taskItem.startDate))
                     .padding(.vertical, 16)
                     .padding(.horizontal, 12)
             }
@@ -166,10 +181,10 @@ struct ScheduleItem: View {
                 .cornerRadius(2)
                 .foregroundColor(Color.green)
             VStack(alignment: .leading) {
-                Text(title)
+                Text(taskItem.title)
                     .fontWeight(.medium)
                     .padding(.horizontal, 10)
-                Text(duration)
+                Text("\(getClock(date: taskItem.startDate)) - \(getClock(date: taskItem.endDate))")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.horizontal, 10)
@@ -181,6 +196,13 @@ struct ScheduleItem: View {
         }
         .padding(.horizontal)
     }
+    
+    func getClock(date: Date) -> String {
+        let clockFormatter = DateFormatter()
+        clockFormatter.dateFormat = "HH:mm"
+        return clockFormatter.string(from: date)
+    }
+    
 }
 
 struct ScheduleItemModel: Identifiable, Hashable {
@@ -194,13 +216,5 @@ struct ScheduleItemModel: Identifiable, Hashable {
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
         TaskListPage()
-    }
-}
-
-struct ScheduleView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScheduleView(scheduleItems: [
-            ScheduleItemModel(time: "9:30", title: "Math: Linear Algebra", duration: "9:30 AM - 11:00 AM")
-        ])
     }
 }
