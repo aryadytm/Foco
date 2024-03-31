@@ -148,7 +148,7 @@ struct ScheduleView: View {
                     }
                 }
                 
-                ForEach(taskItems, id: \.self) { item in
+                ForEach(getTasksSorted(), id: \.self) { item in
                     ScheduleItem(taskItem: item)
                 }
                 
@@ -159,6 +159,10 @@ struct ScheduleView: View {
         }
         .background(Color.gray.opacity(0.2))
         .cornerRadius(20)
+    }
+    
+    func getTasksSorted() -> [TaskItem] {
+        return taskItems.sorted { $0.startDate < $1.startDate }
     }
 }
 
