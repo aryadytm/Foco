@@ -4,7 +4,7 @@ import SwiftData
 struct TaskListPage: View {
     let welcomeName: String = "Arya"
     let currentDate: String = "It's Saturday, 1 March"
-    let tasksCompleted: String = "27"
+    let tasksCompleted: String = "27 / 40"
     let distractionTime: String = "02:41:36"
     let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Fri", "Sat"]
     
@@ -33,7 +33,7 @@ struct TaskListPage: View {
                     .padding(.horizontal)
                 WeekDaysView(days: days)
                     .padding(.horizontal)
-                ScheduleView(taskItems: taskItems)
+                TaskView(taskItems: taskItems)
             }
         }
     }
@@ -57,7 +57,7 @@ struct HeaderView: View {
             Spacer()
                         
             NavigationLink {
-                TaskDetailPage()
+                TaskDetailPage(existingTaskId: "")
             } label: {
                 Image(systemName: "plus")
                     .frame(width: 40, height: 40)
@@ -131,7 +131,7 @@ struct WeekDaysView: View {
     }
 }
 
-struct ScheduleView: View {
+struct TaskView: View {
     let taskItems: [TaskItem]
     
     var body: some View {
@@ -149,7 +149,13 @@ struct ScheduleView: View {
                 }
                 
                 ForEach(getTasksSorted(), id: \.self) { item in
-                    ScheduleItem(taskItem: item)
+                    
+                    NavigationLink {
+                        TaskDetailPage(existingTaskId: item.id)
+                    }
+                    label: {
+                        TaskItemView(taskItem: item)
+                    }
                 }
                 
                 if !taskItems.isEmpty {
@@ -166,7 +172,7 @@ struct ScheduleView: View {
     }
 }
 
-struct ScheduleItem: View {
+struct TaskItemView: View {
     let taskItem: TaskItem
     
     var body: some View {

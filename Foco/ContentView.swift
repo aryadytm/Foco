@@ -11,7 +11,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [TaskItem]
+    @Query private var tasks: [TaskItem]
     
     var body: some View {
         TaskListPage()
@@ -22,6 +22,15 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: TaskItem.self, inMemory: true)
 }
+
+
+
+
+
+// BELOW IS JUST EXAMPLE!
+
+
+
 
 struct ExampleContentView: View {
     @Environment(\.modelContext) private var modelContext

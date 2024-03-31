@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TaskDetailPage: View {
+    var existingTaskId: String = ""
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @Query private var tasks: [TaskItem]
+
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var title = ""
@@ -36,23 +41,70 @@ struct TaskDetailPage: View {
                     }
                 }
                 
-                Section {
-                    Button(action: addTodo) {
-                        Text("Add Task")
-                            .frame(maxWidth: .infinity)
+                if existingTaskId.isEmpty {
+                    Section {
+                        Button(action: addTask) {
+                            Text("Add Task")
+                                .frame(maxWidth: .infinity)
+                        }
                     }
+                } else {
+                    Section {
+                        Button(action: editTask) {
+                            Text("Edit Task")
+                                .frame(maxWidth: .infinity)
+                        }
+                        Button(action: deleteTask) {
+                            Text("Delete Task")
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(.red)
+                        }
+                    }.listRowSeparator(.hidden)
                 }
             }
             .navigationBarTitle("Task", displayMode: .inline)
+            .onAppear {
+                if !existingTaskId.isEmpty {
+                    onExistingTaskItem()
+                }
+            }
         }
     }
     
-    func addTodo() {
+    func getExistingTask() -> TaskItem {
+        let thisTask = tasks.first {
+            $0.id == existingTaskId
+        }!
+        return thisTask
+    }
+    
+    func onExistingTaskItem() {
+        let thisTask = self.getExistingTask()
+        title = thisTask.title
+        description = thisTask.desc
+        startDate = thisTask.startDate
+        endDate = thisTask.endDate
+        isDone = thisTask.isDone
+        
+    }
+    
+    func addTask() {
         let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
         modelContext.insert(newTask)
         dismiss()
-        print("Task Added: \(title)")
     }
+    
+    func editTask() {
+        // TODO
+        
+    }
+    
+    func deleteTask() {
+        let thisTask = self.getExistingTask()
+        modelContext.delete(thisTask)
+        dismiss()
+    }
+    
 }
 
 fileprivate let dateFormatter: DateFormatter = {
