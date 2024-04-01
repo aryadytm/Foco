@@ -18,6 +18,7 @@
 		E61BDC112BB5199100488178 /* FocoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC102BB5199100488178 /* FocoUITests.swift */; };
 		E61BDC132BB5199100488178 /* FocoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */; };
 		E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC222BB51A1F00488178 /* TaskListPage.swift */; };
+		F8E60E072BBA50E100BDB452 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E60E062BBA50E100BDB452 /* Profile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		E61BDC102BB5199100488178 /* FocoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoUITests.swift; sourceTree = "<group>"; };
 		E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E61BDC222BB51A1F00488178 /* TaskListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPage.swift; sourceTree = "<group>"; };
+		F8E60E062BBA50E100BDB452 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				E61BDC222BB51A1F00488178 /* TaskListPage.swift */,
+				F8E60E062BBA50E100BDB452 /* Profile.swift */,
 				E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */,
 			);
 			path = Pages;
@@ -298,6 +301,7 @@
 				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
 				E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */,
 				E61BDBF82BB5198D00488178 /* Item.swift in Sources */,
+				F8E60E072BBA50E100BDB452 /* Profile.swift in Sources */,
 				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
 				E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */,
 				E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */,
