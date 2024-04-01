@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */; };
 		E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */; };
+		E60CDE152BBADF6800E2E50E /* FocusModePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE142BBADF6800E2E50E /* FocusModePage.swift */; };
+		E60CDE172BBAEB8100E2E50E /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE162BBAEB8100E2E50E /* ProfilePage.swift */; };
 		E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF32BB5198D00488178 /* FocoApp.swift */; };
 		E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF52BB5198D00488178 /* ContentView.swift */; };
 		E61BDBF82BB5198D00488178 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF72BB5198D00488178 /* Item.swift */; };
@@ -41,6 +43,8 @@
 		E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailPage.swift; sourceTree = "<group>"; };
 		E60CDDF92BB9643A00E2E50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E60CDE142BBADF6800E2E50E /* FocusModePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusModePage.swift; sourceTree = "<group>"; };
+		E60CDE162BBAEB8100E2E50E /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		E61BDBF02BB5198D00488178 /* Foco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E61BDBF32BB5198D00488178 /* FocoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoApp.swift; sourceTree = "<group>"; };
 		E61BDBF52BB5198D00488178 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 			children = (
 				E61BDC222BB51A1F00488178 /* TaskListPage.swift */,
 				E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */,
+				E60CDE142BBADF6800E2E50E /* FocusModePage.swift */,
+				E60CDE162BBAEB8100E2E50E /* ProfilePage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -297,8 +303,10 @@
 			files = (
 				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
 				E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */,
+				E60CDE172BBAEB8100E2E50E /* ProfilePage.swift in Sources */,
 				E61BDBF82BB5198D00488178 /* Item.swift in Sources */,
 				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
+				E60CDE152BBADF6800E2E50E /* FocusModePage.swift in Sources */,
 				E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */,
 				E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */,
 			);
