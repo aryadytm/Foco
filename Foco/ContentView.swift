@@ -13,6 +13,11 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskItem]
     
+    init() {
+        print("Init ContentView")
+       
+    }
+    
     var body: some View {
         TaskListPage()
     }

@@ -13,6 +13,10 @@ struct TimerStatusAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
         var emoji: String
+        var taskName: String
+        var timeStart: Date
+        var timeEnd: Date
+        var timeWastedinSeconds: Float
     }
 
     // Fixed non-changing properties about your activity go here!
@@ -64,17 +68,17 @@ extension TimerStatusAttributes {
 
 extension TimerStatusAttributes.ContentState {
     fileprivate static var smiley: TimerStatusAttributes.ContentState {
-        TimerStatusAttributes.ContentState(emoji: "😀")
+        TimerStatusAttributes.ContentState(emoji: "😀", taskName: "A", timeStart: Date(), timeEnd: Date(), timeWastedinSeconds: 65)
      }
      
-     fileprivate static var starEyes: TimerStatusAttributes.ContentState {
-         TimerStatusAttributes.ContentState(emoji: "🤩")
-     }
+//     fileprivate static var starEyes: TimerStatusAttributes.ContentState {
+//         TimerStatusAttributes.ContentState(emoji: "🤩")
+//     }
 }
 
 #Preview("Notification", as: .content, using: TimerStatusAttributes.preview) {
    TimerStatusLiveActivity()
 } contentStates: {
     TimerStatusAttributes.ContentState.smiley
-    TimerStatusAttributes.ContentState.starEyes
+//    TimerStatusAttributes.ContentState.starEyes
 }

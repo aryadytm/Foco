@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct FocoApp: App {
+    
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             TaskItem.self,

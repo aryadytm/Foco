@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import ActivityKit
+
+struct TimerStatusAttributes: ActivityAttributes {
+    public struct ContentState: Codable, Hashable {
+        let startTime: Date
+    }
+}
