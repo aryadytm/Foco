@@ -10,87 +10,183 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var isShowingLogoutAlert = false
+    var nama:String
+    var task:Int
+    var taskCompleted:Int
+    var taskTotal:Int
+    @State private var toggle1 = false
+    @State private var isPresented = false
     
     var body: some View {
-        VStack {
-            TabView {
-                VStack {
-                    Text("My Profile").font(.title)
-                        .padding(10).bold()
-
-                    Image("poto")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
-                        .padding(10)
-
-                    Text("Hai, Arya!")
+        NavigationView{
+            VStack{
+                ZStack{
+                    Image("RectangleInsightBG")
+                    Text("Insight")
                         .font(.title)
-                        .padding(15).bold()
-                    
-                    Spacer()
-                    
-                    List {
-                        NavigationLink(destination: Text("Detail 1")) {
-                            HStack {
-                                Text("What is Foco")
-                            }
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.white)
+                }
+                
+                ZStack{
+                    Image("Rectangle84")
+                    HStack {
+                        VStack(alignment: .leading){
+                            Text("Hai " + nama + "!")
+                                .font(.title2)
+                            Text("You have completed \(task) tasks")
+                            Text("since using this app!")
+                            
                         }
-                        NavigationLink(destination: Text("Detail 2")) {
-                            HStack {
-                                Text("FAQ")
+                        .padding(10.0)
+                    }
+                }
+                Spacer()
+                
+            
+                    HStack {
+                        VStack{
+                            ZStack{
+                                HStack {
+                                    Image("Rectangle 81")
+                                    Spacer()
+                                    
+                                }
+                                .padding(.leading, 50.0)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("Task Completed")
+                                        Text("This Week")
+                                        Text("\(taskCompleted)" + "/" + "\(taskTotal)")
+                                            .font(.title)
+                                            .fontWeight(.medium)
+                                            .padding(.top, 1.0)
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .padding(.leading, 60)
+                                
                             }
-                        }
-                        NavigationLink(destination: Text("Detail 3")) {
-                            HStack {
-                                Text("Give us Feedback")
-                            }
-                        }
-                        NavigationLink(destination: Text("Detail 4")) {
-                            HStack {
-                                Text("Privacy Policy")
-                            }
+                            
+                            Spacer()
                         }
                         
-                        Button(action: {
-                            self.isShowingLogoutAlert = true
-                        }) {
-                            HStack {
-                                Text("Logout").foregroundColor(.red)
+                        
+                        VStack{
+                            ZStack{
+                                HStack {
+                                    Image("Rectangle 81")
+                                    Spacer()
+                                    
+                                }
+                                .padding(.trailing, 40)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("Task Completed")
+                                        Text("This Week")
+                                        Text("1h 22m")
+                                            .font(.title)
+                                            .fontWeight(.medium)
+                                            .padding(.top, 1.0)
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 20.0)
+                                
                             }
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical, 5)
+                            
+                            Spacer()
                         }
-                        .alert(isPresented: $isShowingLogoutAlert) {
-                            Alert(title: Text("Logout"), message: Text("Are you sure you want to logout?"), primaryButton: .default(Text("Yes")) {
-                                // Perform logout action here
-                            }, secondaryButton: .cancel())
-                        }
-                    }
-                }
-                .tabItem {
-                    Text("Profile")
-                    Image(systemName: "person")
-                }
-                
-                Text("Tab Content 2")
-                    .tabItem {
-                        Text("Tab 2")
-                        Image(systemName: "star")
+                        
                     }
                 
-                Text("Tab Content 3")
-                    .tabItem {
-                        Text("Tab 3")
-                        Image(systemName: "gear")
+                
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .padding()
+
+                        VStack {
+                            HStack {
+                                
+                                HStack{
+                                    Button("Whitelist App")
+                                    {
+                                       self.isPresented = true
+                                    }
+                                    .padding(.horizontal, 10.0)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                            }
+                            
+                            
+                            .padding(.horizontal, 30.0)
+
+                            HStack {
+                                Toggle("Keep Screen On", isOn: $toggle1)
+                            }
+                            .padding(.horizontal, 40.0)
+                            
+                        }
+                       
                     }
+                Spacer()
+                    .sheet(isPresented: $isPresented) {
+                        SheetView(isPresented: $isPresented)
+                }
+                    VStack {
+                        NavigationLink(destination: EmptyView()) {
+                            Text("About")
+                                .padding()
+                        }
+                        Spacer()
+                    }
+                
+            
+                
+                Image("Group 66")
+       
+                
+                
+                
+                
             }
+            
+            
+            
+            
+            
+            
+            .background(Color(red: 242/255, green: 242/255, blue: 247/255).edgesIgnoringSafeArea(.all))
         }
     }
 }
 
+
+
+
+
+
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(nama: "Arya", task: 377, taskCompleted: 22,taskTotal: 100)
+    }
+}
+
+
+struct SheetView: View {
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        VStack {
+            Text("Sheet Content")
+            Button("Dismiss") {
+                self.isPresented = false
+            }
+        }
+        .padding()
     }
 }
