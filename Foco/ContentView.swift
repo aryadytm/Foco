@@ -19,7 +19,7 @@ struct ContentView: View {
     enum Tab {
         case tasks
         case focusMode
-        case profile
+        case insights
     }
     
     var body: some View {
@@ -38,7 +38,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Insights", systemImage: "person.circle")
                 }
-                .tag(Tab.profile)
+                .tag(Tab.insights)
         }
         .toolbarBackground(Color.white, for: .tabBar)
     }
