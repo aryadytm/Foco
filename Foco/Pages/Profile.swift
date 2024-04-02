@@ -144,7 +144,7 @@ struct ProfileView: View {
                             .fill(Color.white)
                             .frame(maxWidth: .infinity, maxHeight: 40)
                             .padding(20)
-                        NavigationLink(destination: EmptyView()) {
+                        NavigationLink(destination: About()) {
                             HStack {
                                 Text("About")
                                     .padding(.leading, 40)
@@ -186,14 +186,70 @@ struct ProfileView_Previews: PreviewProvider {
 
 struct SheetView: View {
     @Binding var isPresented: Bool
-    
+    @State private var searchText = ""
+    @State private var isSearching = false
+
     var body: some View {
         VStack {
-            Text("Sheet Content")
-            Button("Dismiss") {
-                self.isPresented = false
+            NavigationView {
+                VStack {
+                    Text("No Apps Avaible")
+                }
+                .navigationBarTitle("Whitelist Apps")
+                .navigationBarItems(
+                    leading: Button(action: {
+                        self.isPresented = false
+                    }) {
+                        Image(systemName: "arrow.left")
+                    },
+                    trailing: HStack {
+                        if isSearching {
+                            Button(action: {
+                                self.searchText = ""
+                            }) {
+                                Image(systemName: "multiply.circle.fill")
+                                    .foregroundColor(.gray)
+                            }
+                            .transition(.move(edge: .trailing))
+                            
+                        } else {
+                            Button(action: {
+                                // Perform voice search action here...
+                            }) {
+                                Image(systemName: "mic.fill")
+                                    .foregroundColor(.gray)
+                            }
+                            .transition(.move(edge: .trailing))
+                            
+                        }
+
+                        Button(action: {
+                            // Handle Done action here
+                            self.isPresented = false
+                        }) {
+                            Text("Done")
+                        }
+                    }
+                )
+                .searchable(text: $searchText) {
+                    // Search content here
+                }
+                .overlay(
+                    HStack {
+                        Spacer()
+                        if isSearching {
+                            Button(action: {
+                                // Perform voice search action here...
+                            }) {
+                                Image(systemName: "mic.fill")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.trailing, 10)
+                        }
+                    }
+                    , alignment: .trailing
+                )
             }
-            .padding()
         }
     }
 }
