@@ -14,14 +14,15 @@ class TaskItem {
     var createdDate: Date
     var startDate: Date
     var endDate: Date
+    var emoji: String = "😀"
     var title: String
     var desc: String
     var isDone: Bool
     
-    var isStarted: Bool = false
-    var emoji: String = "😀"
-    var timeWastedSeconds: Int = 0
+    var isStartedManually: Bool = false
+    var isSurrender: Bool = false
     
+    var distractionTimeSecs: Int = 0
     
     init(startDate: Date, endDate: Date, title: String, desc: String, isDone: Bool) {
         self.id = UUID().uuidString
@@ -31,6 +32,10 @@ class TaskItem {
         self.title = title
         self.desc = desc
         self.isDone = isDone
+    }
+    
+    func addDistractionTimeSecs(secs: Int) {
+        distractionTimeSecs += secs
     }
     
     func getClockStr() -> String {
@@ -72,15 +77,14 @@ class TaskItem {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
-    func getTimeWastedFormatted() -> String {
-        let hours = timeWastedSeconds / 3600
-        let minutes = (timeWastedSeconds % 3600) / 60
-        let seconds = (timeWastedSeconds % 3600) % 60
+    func getDistractionTimeStr() -> String {
+        let hours = distractionTimeSecs / 3600
+        let minutes = (distractionTimeSecs % 3600) / 60
+        let seconds = distractionTimeSecs % 60
         if hours == 0 {
-            return String(format: "%02d minutes %02d seconds", minutes, seconds)
+            return String(format: "%d minute(s) %d seconds", minutes, seconds)
         }
-        return String(format: "%02d hour(s) %02d seconds %02 minutes", hours, minutes, seconds)
-
+        return String(format: "%d hour(s) %d minute(s) %d seconds", hours, minutes, seconds)
     }
     
     func getFocusModeState() -> FocusModeState {
@@ -88,14 +92,14 @@ class TaskItem {
         if isDone {
             return FocusModeState.accomplished
         }
-        if !isDone && now > endDate {
+        if (!isDone && now > endDate) || isSurrender {
             return FocusModeState.failed
+        }
+        if (now > startDate && now < endDate) || isStartedManually {
+            return FocusModeState.inProgress
         }
         if now < startDate {
             return FocusModeState.incoming
-        }
-        if (now > startDate && now < endDate) || isStarted {
-            return FocusModeState.inProgress
         }
         return FocusModeState.incoming
     }

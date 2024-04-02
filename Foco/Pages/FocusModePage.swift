@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import ActivityKit
 
 struct FocusModePage: View {
     
     @State var focusModeState: FocusModeState = .inProgress
+    @Environment(\.scenePhase) var scenePhase
+
     
     private var currentDate: String {
         let currentDate = Date()
@@ -28,9 +31,11 @@ struct FocusModePage: View {
     )
     
     @State var taskTimerStr: String = "00:00"
+    @State var lastBackgroundTimestamp: Int = 0
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
+    private var activityManager = FocoLiveActivityManager()
     
     var body: some View {
         NavigationView {
@@ -47,7 +52,6 @@ struct FocusModePage: View {
                             Text(currentDate)
                                 .padding(.bottom)
                                 .foregroundColor(.white)
-                            
                         }
                         Spacer()
                     }
@@ -57,7 +61,7 @@ struct FocusModePage: View {
                         .padding(.top, 12)
                         .padding(.bottom, 2)
                     
-                    Text(taskItem.title)
+                    Text(taskItem.emoji + " " + taskItem.title)
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.bottom, 2)
@@ -115,8 +119,21 @@ struct FocusModePage: View {
             .navigationBarHidden(true)
             .background(Color.focoBackground)
         }
+        .onAppear {
+            focusModeState = taskItem.getFocusModeState()
+        }
         .onReceive(timer) { t in
             onTickSecond()
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .active && lastBackgroundTimestamp > 0 {
+                let distractionSecs = Int(Date().timeIntervalSince1970) - lastBackgroundTimestamp
+                taskItem.addDistractionTimeSecs(secs: distractionSecs)
+                activityManager.stop()
+            } else if newPhase == .background {
+                lastBackgroundTimestamp = Int(Date().timeIntervalSince1970)
+                activityManager.start()
+            }
         }
     }
 
@@ -151,7 +168,7 @@ struct BottomStateIncoming: View {
         // Button: Start Now
         VStack {
             Button(action: {
-                taskItem.isStarted = true
+                taskItem.isStartedManually = true
             }) {
                 HStack {
                     Image(systemName: "play.fill")
@@ -187,16 +204,12 @@ struct BottomStateInProgress: View {
     var body: some View {
         // Button: Start Now
         VStack {
-            Text("Your time distracted")
-                .font(.caption)
-            Text(taskItem.getTimeWastedFormatted())
-                .fontWeight(.bold)
-                .padding(.bottom)
-                .foregroundColor(.red)
+            TimeDistractedView(taskItem: $taskItem)
+
             
             HStack {
                 Button(action: {
-                    // TODO: Handle button tap
+                    taskItem.isDone = true
                 }) {
                     HStack {
                         Text("Done!")
@@ -207,7 +220,7 @@ struct BottomStateInProgress: View {
                     .cornerRadius(10)
                 }
                 Button(action: {
-                    // TODO: Handle button tap
+                    taskItem.isSurrender = true
                 }) {
                     HStack {
                         Text("Surrender :(")
@@ -226,6 +239,7 @@ struct BottomStateInProgress: View {
                 .padding(.horizontal, 60)
         }
     }
+    
 }
 
 
@@ -235,12 +249,7 @@ struct BottomStateAccomplished: View {
     var body: some View {
         // Button: Start Now
         VStack {
-            Text("Your total time distracted")
-                .font(.caption)
-            Text(taskItem.getTimeWastedFormatted())
-                .fontWeight(.bold)
-                .padding(.bottom)
-                .foregroundColor(.red)
+            TimeDistractedView(taskItem: $taskItem)
             
             HStack {
                 Button(action: {
@@ -267,12 +276,7 @@ struct BottomStateFailed: View {
     var body: some View {
         // Button: Start Now
         VStack {
-            Text("Your time distracted")
-                .font(.caption)
-            Text(taskItem.getTimeWastedFormatted())
-                .fontWeight(.bold)
-                .padding(.bottom)
-                .foregroundColor(.red)
+            TimeDistractedView(taskItem: $taskItem)
             
             HStack {
                 Button(action: {
@@ -286,20 +290,47 @@ struct BottomStateFailed: View {
                     .background(Color.focoPrimary)
                     .cornerRadius(10)
                 }
-                Button(action: {
-                    // TODO: Handle button tap
-                }) {
-                    HStack {
-                        Text("Mark as Done")
-                            .foregroundColor(.focoPrimary)
+                if !taskItem.isSurrender {
+                    Button(action: {
+                        // TODO: Handle button tap
+                        taskItem.isDone = true
+                    }) {
+                        HStack {
+                            Text("Mark as Done")
+                                .foregroundColor(.focoPrimary)
+                        }
+                        .padding()
+                        .background(.focoPrimary.opacity(0.1))
+                        .cornerRadius(10)
                     }
-                    .padding()
-                    .background(.focoPrimary.opacity(0.1))
-                    .cornerRadius(10)
                 }
+               
             }
        
         }
+    }
+}
+
+
+struct TimeDistractedView: View {
+    @Binding var taskItem: TaskItem
+    
+    var body: some View {
+        Text("Your time distracted")
+            .font(.caption)
+        Text(taskItem.getDistractionTimeStr())
+            .fontWeight(.bold)
+            .padding(.bottom)
+            .foregroundColor(getDistractionColor())
+    }
+    
+    func getDistractionColor() -> Color {
+        if taskItem.distractionTimeSecs == 0 {
+            return Color.green
+        } else if taskItem.distractionTimeSecs <= 600 {
+            return Color.orange
+        }
+        return Color.red
     }
 }
 
