@@ -34,14 +34,13 @@ struct ContentView: View {
                     Label("Focus Mode", systemImage: "hourglass")
                 }
                 .tag(Tab.focusMode)
-            ProfilePage()
+            InsightsPage()
                 .tabItem {
-                    Label("Profile", systemImage: "person.circle")
+                    Label("Insights", systemImage: "person.circle")
                 }
                 .tag(Tab.profile)
         }
         .toolbarBackground(Color.white, for: .tabBar)
-//        TaskListPage()
     }
 }
 
