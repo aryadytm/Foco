@@ -11,10 +11,36 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var tasks: [TaskItem]
     
+    @State private var selection: Tab = .tasks
+    
+    enum Tab {
+        case tasks
+        case focusMode
+        case profile
+    }
+    
     var body: some View {
-        TaskListPage()
+        TabView(selection: $selection) {
+            TaskListPage()
+                .tabItem {
+                    Label("Tasks", systemImage: "calendar")
+                }
+                .tag(Tab.tasks)
+            FocusModePage()
+                .tabItem {
+                    Label("Focus Mode", systemImage: "hourglass")
+                }
+                .tag(Tab.focusMode)
+            InsightsPage()
+                .tabItem {
+                    Label("Insights", systemImage: "person.circle")
+                }
+                .tag(Tab.profile)
+        }
+        .toolbarBackground(Color.white, for: .tabBar)
     }
 }
 
@@ -27,7 +53,9 @@ struct ContentView: View {
 
 
 
+
 // BELOW IS JUST EXAMPLE!
+
 
 
 

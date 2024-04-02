@@ -105,6 +105,7 @@ struct TaskDetailPage: View {
         
         let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
         modelContext.insert(newTask)
+        
         dismiss()
     }
     
