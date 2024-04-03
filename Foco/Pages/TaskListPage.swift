@@ -13,33 +13,55 @@ struct TaskListPage: View {
     }
     
     var tasksCompleted: String {
-        "\(taskItems.filter { $0.isDone && isDateInCurrentWeek($0.startDate) }.count) / \(taskItems.filter { isDateInCurrentWeek($0.startDate) }.count)"
+        "\(taskItems.filter { $0.isRepeated && isDateInCurrentWeek($0.startDate) }.count) / \(taskItems.filter { isDateInCurrentWeek($0.startDate) }.count)"
     }
     var distractionTime: String = "0h 0m"
     
-//    let taskItems: [TaskItem] = [
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
-//    ]
-
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                HeaderView(welcomeName: welcomeName, currentDate: currentDate)
+                VStack{
+                    ZStack {
+                        Image("RectangleInsightBG")
+                        Image("Contents")
+                            .padding(.top, 40.0)
+                    }
+                    
+                }
+                .ignoresSafeArea(.all)
                     .padding(.horizontal)
-                    .padding(.top)
-                CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
-                    .padding(.horizontal)
-                Text("This week")
-                    .font(.caption)
-                    .padding(.horizontal)
-                   
-                WeekDaysView(selectedDate: $selectedDate)
-                    .padding(.horizontal)
+                VStack {
+                        WeekDaysView(selectedDate: $selectedDate)
+                    
+                    .padding(.leading, 30.0)
+                }
+    
+
+                HStack{
+                    NavigationLink{
+                        TaskDetailPage(existingTaskId: "")
+                    } label:{
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10).foregroundColor(.biru
+                            ).frame(maxWidth: .infinity,maxHeight: 50)
+                            HStack{
+                                Image(systemName: "plus.circle.fill").foregroundColor(.white)
+                                Text("Create Task").foregroundColor(.white
+                                )
+                            }
+                        }
+                        
+                    }
+                    .padding(.leading, 30.0)
+                }
+                .padding(.vertical)
+
                 TasksView(taskItems: getTaskItemsBySelectedDateDay())
             }
+            
         }
+        Spacer()
         .onAppear {
             
         }
@@ -73,36 +95,7 @@ struct TaskListPage: View {
     
 }
 
-struct HeaderView: View {
-    let welcomeName: String
-    let currentDate: String
 
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Welcome, \(welcomeName)!")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Text(currentDate)
-                    .font(.title3)
-                    .foregroundColor(.gray)
-            }
-            
-            Spacer()
-                        
-            NavigationLink {
-                TaskDetailPage(existingTaskId: "")
-            } label: {
-                Image(systemName: "plus")
-                    .frame(width: 40, height: 40)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .clipShape(Circle())
-            }
-            
-        }
-    }
-}
 
 struct CardsView: View {
     let tasksCompleted: String
@@ -159,7 +152,7 @@ struct WeekDaysView: View {
         
         for i in 0..<7 {
             if let date = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
-                let weekDayName = calendar.shortWeekdaySymbols[i]
+                let weekDayName = calendar.veryShortWeekdaySymbols[i]
                 let dayOfMonthInt = calendar.component(.day, from: date)
                 weekDays.append(Day(date: date, dayName: weekDayName, dayOfMonthInt: dayOfMonthInt))
             }
@@ -172,6 +165,7 @@ struct WeekDaysView: View {
         getCurrentDayOfMonth()
     }
     
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
@@ -181,21 +175,25 @@ struct WeekDaysView: View {
                         print(selectedDate)
                     } label: {
                         VStack {
+                            Text(days[index].dayName)
+                                .font(.caption)
+                                .padding(.bottom, 10)
+                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
                             Text(String(days[index].dayOfMonthInt))
                                 .fontWeight(.bold)
                                 .padding(.top, 10)
                                 .padding(.horizontal, 15)
                                 .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
-                            Text(days[index].dayName)
-                                .font(.caption)
-                                .padding(.bottom, 10)
-                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
+                            
+
                         }
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(15)
+
                     }
                 }
+                
+                
             }
+           
         }
         .padding(.bottom)
     }
@@ -218,36 +216,45 @@ struct TasksView: View {
     let taskItems: [TaskItem]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                
-                Text("")
-                
-                if taskItems.isEmpty {
-                    Spacer()
-                    Text("You have no tasks.")
-                    HStack {
+        HStack {
+            ScrollView {
+                VStack {
+                    
+                    Text("")
+                    
+                    if taskItems.isEmpty {
+                        VStack {
+                            Spacer()
+                        }
+                        
+                        Image("3 1")
+                        HStack {
+                            Spacer()
+                            
+                        }
+                        VStack{
+                            Text("No tasks?")
+                            Text("Add a new task to start!")
+                        }
+                    }
+                    
+                    ForEach(getTasksSorted(), id: \.self) { item in
+                        
+                        NavigationLink {
+                            TaskDetailPage(existingTaskId: item.id)
+                        }
+                        label: {
+                            TaskItemView(taskItem: item)
+                        }
+                    }
+                    
+                    if !taskItems.isEmpty {
                         Spacer()
                     }
                 }
-                
-                ForEach(getTasksSorted(), id: \.self) { item in
-                    
-                    NavigationLink {
-                        TaskDetailPage(existingTaskId: item.id)
-                    }
-                    label: {
-                        TaskItemView(taskItem: item)
-                    }
-                }
-                
-                if !taskItems.isEmpty {
-                    Spacer()
-                }
             }
-        }
-        .background(Color.gray.opacity(0.2))
         .cornerRadius(20)
+        }
     }
     
     func getTasksSorted() -> [TaskItem] {
@@ -272,8 +279,9 @@ struct TaskItemView: View {
             Rectangle()
                 .frame(width: 8, height: 50)
                 .cornerRadius(2)
-                .foregroundColor(taskItem.isDone ? Color.green : Color.yellow)
+                .foregroundColor(taskItem.isRepeated ? Color.green : Color.yellow)
             VStack(alignment: .leading) {
+                Text(taskItem.emoji).padding(.horizontal, 10)
                 Text(taskItem.title)
                     .fontWeight(.medium)
                     .padding(.horizontal, 10)

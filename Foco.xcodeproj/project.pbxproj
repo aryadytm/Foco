@@ -259,6 +259,10 @@
 				Base,
 			);
 			mainGroup = E61BDBE72BB5198D00488178;
+			packageReferences = (
+				F8304A032BBCF22A00503C50 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				F8304A042BBD026000503C50 /* XCRemoteSwiftPackageReference "CalendarKit" */,
+			);
 			productRefGroup = E61BDBF12BB5198D00488178 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -640,6 +644,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F8304A032BBCF22A00503C50 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.9;
+			};
+		};
+		F8304A042BBD026000503C50 /* XCRemoteSwiftPackageReference "CalendarKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/richardtop/CalendarKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.10;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = E61BDBE82BB5198D00488178 /* Project object */;
 }

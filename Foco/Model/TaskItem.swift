@@ -16,15 +16,19 @@ class TaskItem {
     var endDate: Date
     var title: String
     var desc: String
+    var isRepeated: Bool
+    var emoji: String
     var isDone: Bool
     
-    init(startDate: Date, endDate: Date, title: String, desc: String, isDone: Bool) {
+    init(startDate: Date, endDate: Date, title: String, desc: String, isRepeated: Bool, emoji:String, isDone:Bool) {
         self.id = UUID().uuidString
         self.createdDate = Date.now
         self.startDate = startDate
         self.endDate = endDate
         self.title = title
         self.desc = desc
+        self.isRepeated = isRepeated
+        self.emoji = emoji
         self.isDone = isDone
     }
 }

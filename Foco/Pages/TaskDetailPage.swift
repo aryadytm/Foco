@@ -10,23 +10,29 @@ import SwiftData
 
 struct TaskDetailPage: View {
     var existingTaskId: String = ""
-    
+    @State private var emojiText = ""
+
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
     @Query private var tasks: [TaskItem]
-
+    @State private var emoji = ""
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var title = ""
     @State private var description = ""
-    @State private var isDone = false
+    @State private var isRepeated = false
     @State private var errorMessage = ""
+    @State private var isDone = false
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Task Details")) {
+                    VStack {
+
+                        EmojiPicker(selectedEmoji: $emoji)
+                            }
                     TextField("Title", text: $title)
                     TextField("Description", text: $description, axis: .vertical)
                         .lineLimit(3...10)
@@ -38,8 +44,8 @@ struct TaskDetailPage: View {
                 }
                 
                 Section {
-                    Toggle(isOn: $isDone) {
-                        Text("Completed")
+                    Toggle(isOn: $isRepeated) {
+                        Text("Repeat")
                     }
                 }
                 
@@ -72,7 +78,7 @@ struct TaskDetailPage: View {
                 }
                 
             }
-            .navigationBarTitle("Task", displayMode: .inline)
+            .navigationBarTitle("Add fTask", displayMode: .inline)
             .onAppear {
                 if !existingTaskId.isEmpty {
                     onExistingTaskItem()
@@ -94,7 +100,7 @@ struct TaskDetailPage: View {
         description = thisTask.desc
         startDate = thisTask.startDate
         endDate = thisTask.endDate
-        isDone = thisTask.isDone
+        isRepeated = thisTask.isRepeated
         
     }
     
@@ -103,7 +109,7 @@ struct TaskDetailPage: View {
             return
         }
         
-        let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
+        let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isRepeated: isRepeated, emoji: emoji, isDone: isDone)
         modelContext.insert(newTask)
         dismiss()
     }
@@ -114,11 +120,12 @@ struct TaskDetailPage: View {
         }
         
         let thisTask = self.getExistingTask()
+        thisTask.emoji = emoji
         thisTask.title = title
         thisTask.desc = description
         thisTask.startDate = startDate
         thisTask.endDate = endDate
-        thisTask.isDone = isDone
+        thisTask.isRepeated = isRepeated
         dismiss()
     }
     
@@ -152,4 +159,24 @@ fileprivate let dateFormatter: DateFormatter = {
 #Preview {
     TaskDetailPage()
         .modelContainer(for: TaskItem.self, inMemory: true)
+}
+
+struct EmojiPicker: View {
+    @Binding var selectedEmoji: String
+
+    
+    let emojis = ["😊", "😂", "😍", "🥺", "😎", "🤩", "😴", "😡", "🤯", "🥳"]
+    
+    var body: some View {
+        VStack {
+            
+            Picker("Emoji Tag", selection: $selectedEmoji) {
+                ForEach(emojis, id: \.self) { emoji in
+                    Text(emoji)
+                }
+            }
+            .pickerStyle(MenuPickerStyle())
+            .foregroundColor(.gray)
+        }
+    }
 }
