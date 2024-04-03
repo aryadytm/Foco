@@ -6,14 +6,26 @@
 //
 
 import SwiftUI
+import SwiftData
 import ActivityKit
+
 
 struct FocusModePage: View {
     
-    @State var focusModeState: FocusModeState = .inProgress
-    @Environment(\.scenePhase) var scenePhase
-
+    @Query private var taskItems: [TaskItem]
     
+//    @State var taskItem: TaskItem?
+    
+    @State var taskItem: TaskItem = TaskItem(
+        startDate: Calendar.current.date(byAdding: .second, value: 10, to: Date())!,
+        endDate: Calendar.current.date(byAdding: .second, value: 30, to: Date())!,
+        title: "Example Task",
+        desc: "Description",
+        isDone: false
+    )
+    
+    @State var focusModeState: FocusModeState = .incoming
+ 
     private var currentDate: String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -22,20 +34,32 @@ struct FocusModePage: View {
         return formattedDate
     }
     
-    @State var taskItem: TaskItem = TaskItem(
-        startDate: Calendar.current.date(byAdding: .second, value: 10, to: Date())!,
-        endDate: Calendar.current.date(byAdding: .second, value: 20, to: Date())!,
-        title: "Study Math",
-        desc: "Chapter 5: Vector Spaces",
-        isDone: false
-    )
+    @State var hasNoTasks: Bool = true
     
-    @State var taskTimerStr: String = "00:00"
-    @State var lastBackgroundTimestamp: Int = 0
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    private var activityManager = FocoLiveActivityManager()
+    func refreshPage() {
+        // TODO: Only one task at same time range!
+        hasNoTasks = true
+        
+        guard !taskItems.isEmpty else {
+            hasNoTasks = true
+            return
+        }
+        
+        // Find the incoming task closest to the current time
+        let closestIncomingTask = taskItems.filter {
+            Date() < $0.endDate && !$0.isNextTaskClicked
+        }.min(by: { $0.endDate.timeIntervalSinceNow < $1.startDate.timeIntervalSinceNow })
+        
+        
+        guard let incomingTask = closestIncomingTask else {
+            hasNoTasks = true
+            return
+        }
+        
+        taskItem = incomingTask
+        
+        hasNoTasks = false
+    }
     
     var body: some View {
         NavigationView {
@@ -44,7 +68,7 @@ struct FocusModePage: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text(focusModeState.rawValue)
+                            Text(hasNoTasks ? "Focus Mode" : focusModeState.rawValue)
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -57,67 +81,105 @@ struct FocusModePage: View {
                     }
                     .background(Color.focoPrimary)
                     
-                    Text("Foco Time!")
-                        .padding(.top, 12)
-                        .padding(.bottom, 2)
-                    
-                    Text(taskItem.emoji + " " + taskItem.title)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 2)
-                    
-                    Text(taskItem.getClockStr())
-                    
-                    if focusModeState == .incoming {
-                        ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
-                    } else if focusModeState == .inProgress {
-                        ImageStateSet(image: "FocoFocusInProgress", backgroundColor: Color.yellow.opacity(0.2))
-                    } else if focusModeState == .accomplished {
-                        ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.green.opacity(0.2))
-                    } else if focusModeState == .failed {
-                        ImageStateSet(image: "FocoFocusFailed", backgroundColor: Color.red.opacity(0.2))
-                    }
-                    
-                    Text(focusModeState == .incoming ? "Task Duration" : "Focus Timer")
-                        .font(.caption)
-                        .padding(.top, 10)
-                    
-                    if focusModeState == .incoming {
-                        Text(taskItem.getDurationStr())
-                            .font(.system(size: 70))
-                            .fontWeight(.bold)
-                            .padding(.bottom, 1)
-                            .opacity(0.7)
-                    } else if focusModeState == .inProgress {
-                        Text(taskTimerStr)
-                            .font(.system(size: 70))
-                            .fontWeight(.bold)
-                            .padding(.bottom, 1)
-                            .opacity(0.7)
+                    if hasNoTasks {
+                        Spacer()
+                        ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.gray.opacity(0.2))
+                        Text("You have no incoming tasks")
+                        Spacer()
                     } else {
-                        Text("00:00")
-                            .font(.system(size: 70))
-                            .fontWeight(.bold)
-                            .padding(.bottom, 1)
-                            .opacity(0.7)
+                        FocusModeView(taskItem: $taskItem, focusModeState: $focusModeState, refreshFunction: refreshPage)
                     }
                     
-                    
-                    if focusModeState == .incoming {
-                        BottomStateIncoming(taskItem: $taskItem)
-                    } else if focusModeState == .inProgress {
-                        BottomStateInProgress(taskItem: $taskItem)
-                    } else if focusModeState == .accomplished {
-                        BottomStateAccomplished(taskItem: $taskItem)
-                    } else if focusModeState == .failed {
-                        BottomStateFailed(taskItem: $taskItem)
-                    }
-                    
-                    Spacer()
                 }
             }
-            .navigationBarHidden(true)
             .background(Color.focoBackground)
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            refreshPage()
+        }
+        
+    }
+}
+
+struct FocusModeView: View {
+    
+    @Binding var taskItem: TaskItem
+    @Binding var focusModeState: FocusModeState
+    let refreshFunction: () -> Void
+    
+    @Environment(\.scenePhase) var scenePhase
+
+    @State var taskTimerStr: String = "00:00"
+    @State var lastBackgroundTimestamp: Int = 0
+    @State var isBackground: Bool = false
+    
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    
+    var activityManager = FocoLiveActivityManager()
+    var hasNoTasks: Bool {
+        true
+    }
+    
+    var body: some View {
+        VStack {
+            
+            Text("Foco Time!")
+                .padding(.top, 12)
+                .padding(.bottom, 2)
+            
+            Text(taskItem.emoji + " " + taskItem.title)
+                .font(.title)
+                .fontWeight(.bold)
+                .padding(.bottom, 2)
+            
+            Text(taskItem.getClockStr())
+            
+            if focusModeState == .incoming {
+                ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
+            } else if focusModeState == .inProgress {
+                ImageStateSet(image: "FocoFocusInProgress", backgroundColor: Color.yellow.opacity(0.2))
+            } else if focusModeState == .accomplished {
+                ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.green.opacity(0.2))
+            } else if focusModeState == .failed {
+                ImageStateSet(image: "FocoFocusFailed", backgroundColor: Color.red.opacity(0.2))
+            }
+            
+            Text(focusModeState == .incoming ? "Task Duration" : "Focus Timer")
+                .font(.caption)
+                .padding(.top, 10)
+            
+            if focusModeState == .incoming {
+                Text(taskItem.getDurationStr())
+                    .font(.system(size: 70))
+                    .fontWeight(.bold)
+                    .padding(.bottom, 1)
+                    .opacity(0.7)
+            } else if focusModeState == .inProgress {
+                Text(taskTimerStr)
+                    .font(.system(size: 70))
+                    .fontWeight(.bold)
+                    .padding(.bottom, 1)
+                    .opacity(0.7)
+            } else {
+                Text("00:00")
+                    .font(.system(size: 70))
+                    .fontWeight(.bold)
+                    .padding(.bottom, 1)
+                    .opacity(0.7)
+            }
+            
+            if focusModeState == .incoming {
+                BottomStateIncoming(taskItem: $taskItem)
+            } else if focusModeState == .inProgress {
+                BottomStateInProgress(taskItem: $taskItem)
+            } else if focusModeState == .accomplished {
+                BottomStateAccomplished(taskItem: $taskItem, refreshFunction: refreshFunction)
+            } else if focusModeState == .failed {
+                BottomStateFailed(taskItem: $taskItem, refreshFunction: refreshFunction)
+            }
+            
+            Spacer()
         }
         .onAppear {
             focusModeState = taskItem.getFocusModeState()
@@ -130,16 +192,26 @@ struct FocusModePage: View {
                 let distractionSecs = Int(Date().timeIntervalSince1970) - lastBackgroundTimestamp
                 taskItem.addDistractionTimeSecs(secs: distractionSecs)
                 activityManager.stop()
+                isBackground = false
             } else if newPhase == .background {
                 lastBackgroundTimestamp = Int(Date().timeIntervalSince1970)
-                activityManager.start()
+                
+                if focusModeState == .inProgress {
+                    activityManager.start(taskItem: taskItem)
+                }
+                
+                isBackground = true
             }
         }
     }
-
+    
     func onTickSecond() {
+//        print("Tick second: \(Date()). isBackground: \(isBackground)")
         focusModeState = taskItem.getFocusModeState()
         taskTimerStr = taskItem.getDurationFromNowStr()
+        //        if isBackground {
+        //            activityManager.onTickSecond(taskItem: taskItem)
+        //        }
     }
     
 }
@@ -161,9 +233,9 @@ struct ImageStateSet: View {
 struct BottomStateIncoming: View {
     @Binding var taskItem: TaskItem
     @State var taskTimerStr: String = "00:00"
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
     var body: some View {
         // Button: Start Now
         VStack {
@@ -191,7 +263,7 @@ struct BottomStateIncoming: View {
             onTickSecond()
         }
     }
-        
+    
     func onTickSecond() {
         taskTimerStr = taskItem.getDurationUntilStartedStr()
     }
@@ -205,7 +277,6 @@ struct BottomStateInProgress: View {
         // Button: Start Now
         VStack {
             TimeDistractedView(taskItem: $taskItem)
-
             
             HStack {
                 Button(action: {
@@ -245,7 +316,8 @@ struct BottomStateInProgress: View {
 
 struct BottomStateAccomplished: View {
     @Binding var taskItem: TaskItem
-
+    let refreshFunction: () -> Void
+    
     var body: some View {
         // Button: Start Now
         VStack {
@@ -253,7 +325,8 @@ struct BottomStateAccomplished: View {
             
             HStack {
                 Button(action: {
-                    // TODO: Handle button tap
+                    taskItem.isNextTaskClicked = true
+                    refreshFunction()
                 }) {
                     HStack {
                         Text("Next Task")
@@ -272,7 +345,8 @@ struct BottomStateAccomplished: View {
 
 struct BottomStateFailed: View {
     @Binding var taskItem: TaskItem
-
+    let refreshFunction: () -> Void
+    
     var body: some View {
         // Button: Start Now
         VStack {
@@ -280,7 +354,8 @@ struct BottomStateFailed: View {
             
             HStack {
                 Button(action: {
-                    // TODO: Handle button tap
+                    taskItem.isNextTaskClicked = true
+                    refreshFunction()
                 }) {
                     HStack {
                         Text("Next Task")
@@ -292,7 +367,6 @@ struct BottomStateFailed: View {
                 }
                 if !taskItem.isSurrender {
                     Button(action: {
-                        // TODO: Handle button tap
                         taskItem.isDone = true
                     }) {
                         HStack {
@@ -304,9 +378,9 @@ struct BottomStateFailed: View {
                         .cornerRadius(10)
                     }
                 }
-               
+                
             }
-       
+            
         }
     }
 }

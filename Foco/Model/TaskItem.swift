@@ -21,6 +21,7 @@ class TaskItem {
     
     var isStartedManually: Bool = false
     var isSurrender: Bool = false
+    var isNextTaskClicked = false
     
     var distractionTimeSecs: Int = 0
     
@@ -32,6 +33,13 @@ class TaskItem {
         self.title = title
         self.desc = desc
         self.isDone = isDone
+    }
+    
+    func getProgress() -> Float {
+        let totalSeconds = endDate.timeIntervalSince(startDate)
+        let currentTime = Date().timeIntervalSince(startDate)
+        let progress = currentTime / totalSeconds
+        return max(0.0, Float(progress))
     }
     
     func addDistractionTimeSecs(secs: Int) {

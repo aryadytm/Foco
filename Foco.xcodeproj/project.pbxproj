@@ -195,10 +195,10 @@
 		E61BDBF22BB5198D00488178 /* Foco */ = {
 			isa = PBXGroup;
 			children = (
-				E60CDE392BBC3E9300E2E50E /* FocoLiveActivity */,
 				E61BDC262BB7E1A300488178 /* Pages */,
 				E61BDC1F2BB519CC00488178 /* Views */,
 				E61BDC202BB519D700488178 /* Model */,
+				E60CDE392BBC3E9300E2E50E /* FocoLiveActivity */,
 				E61BDBF32BB5198D00488178 /* FocoApp.swift */,
 				E61BDBF52BB5198D00488178 /* ContentView.swift */,
 				E61BDBF72BB5198D00488178 /* Item.swift */,

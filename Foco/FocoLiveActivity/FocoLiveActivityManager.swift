@@ -12,17 +12,16 @@ class FocoLiveActivityManager {
     
     private var activity: Activity<FocoLiveActivityAttributes>?
     
-    func start() {
-        var activity: Activity<FocoLiveActivityAttributes>?
+    func start(taskItem: TaskItem) {
         
         if ActivityAuthorizationInfo().areActivitiesEnabled {
             do {
-                let attributes = FocoLiveActivityAttributes(name: "Arya")
+                let attributes = FocoLiveActivityAttributes()
                 let initialState = FocoLiveActivityAttributes.ContentState(
-                    emoji: "EMOJI"
+                    distractionSeconds: taskItem.distractionTimeSecs, progress: taskItem.getProgress()
                 )
                 
-                let activity = try Activity.request(
+                activity = try Activity.request(
                     attributes: attributes,
                     content: .init(state: initialState, staleDate: nil),
                     pushType: nil
@@ -39,16 +38,24 @@ class FocoLiveActivityManager {
             }
         }
         
-        self.activity = activity
+    }
+    
+    func onTickSecond(taskItem: TaskItem) {
+        let contentState = FocoLiveActivityAttributes.ContentState(
+            distractionSeconds: taskItem.distractionTimeSecs, progress: taskItem.getProgress()
+        )
+        Task {
+//            await activity?.update(using: contentState)
+            await activity?.update(
+                .init(state: contentState, staleDate: nil)
+            )
+        }
+        
     }
     
     func stop() {
         Task {
             for activity in Activity<FocoLiveActivityAttributes>.activities {
-                let attributes = FocoLiveActivityAttributes(name: "Arya")
-                let initialState = FocoLiveActivityAttributes.ContentState(
-                    emoji: "EMOJI"
-                )
                 await activity.end(nil, dismissalPolicy: .immediate)
             }
         }
