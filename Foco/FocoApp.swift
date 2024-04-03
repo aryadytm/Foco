@@ -25,7 +25,8 @@ struct FocoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            OnboardingPages()
         }
         .modelContainer(sharedModelContainer)
     }

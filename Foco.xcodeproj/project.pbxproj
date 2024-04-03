@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C13C4A922BBBB688009FB2BE /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C4A912BBBB688009FB2BE /* ProfileModel.swift */; };
+		C13C4A942BBBE2A1009FB2BE /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C4A932BBBE2A1009FB2BE /* PageModel.swift */; };
+		C13C4A9C2BBBE93C009FB2BE /* OnboardingPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C4A9B2BBBE93C009FB2BE /* OnboardingPages.swift */; };
 		E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */; };
 		E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */; };
 		E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF32BB5198D00488178 /* FocoApp.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C13C4A912BBBB688009FB2BE /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		C13C4A932BBBE2A1009FB2BE /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
+		C13C4A9B2BBBE93C009FB2BE /* OnboardingPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPages.swift; sourceTree = "<group>"; };
 		E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailPage.swift; sourceTree = "<group>"; };
 		E60CDDF92BB9643A00E2E50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -152,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */,
+				C13C4A912BBBB688009FB2BE /* ProfileModel.swift */,
+				C13C4A932BBBE2A1009FB2BE /* PageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +169,7 @@
 			children = (
 				E61BDC222BB51A1F00488178 /* TaskListPage.swift */,
 				E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */,
+				C13C4A9B2BBBE93C009FB2BE /* OnboardingPages.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -295,7 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13C4A942BBBE2A1009FB2BE /* PageModel.swift in Sources */,
+				C13C4A9C2BBBE93C009FB2BE /* OnboardingPages.swift in Sources */,
 				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
+				C13C4A922BBBB688009FB2BE /* ProfileModel.swift in Sources */,
 				E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */,
 				E61BDBF82BB5198D00488178 /* Item.swift in Sources */,
 				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
