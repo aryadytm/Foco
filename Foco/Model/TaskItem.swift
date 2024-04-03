@@ -27,4 +27,10 @@ class TaskItem {
         self.desc = desc
         self.isDone = isDone
     }
+    
+    func getClockStr() -> String {
+        let clockFormatter = DateFormatter()
+        clockFormatter.dateFormat = "HH:mm"
+        return "\(clockFormatter.string(from: startDate)) - \(clockFormatter.string(from: endDate))"
+    }
 }
