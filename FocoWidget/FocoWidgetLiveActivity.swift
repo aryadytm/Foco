@@ -19,7 +19,8 @@ struct StopwatchText: View {
         Calendar.current.date(byAdding: .second, value: Int(-startingSeconds), to: now)!
     }
     var end: Date {
-        Calendar.current.date(byAdding: .second, value: Int(3_600_000), to: start)!
+//        Calendar.current.date(byAdding: .second, value: , to: start)!
+        Date.distantFuture
     }
 
     var body: some View {
