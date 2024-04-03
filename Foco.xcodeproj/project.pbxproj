@@ -12,6 +12,17 @@
 		E60CDE152BBADF6800E2E50E /* FocusModePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE142BBADF6800E2E50E /* FocusModePage.swift */; };
 		E60CDE172BBAEB8100E2E50E /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE162BBAEB8100E2E50E /* ProfilePage.swift */; };
 		E60CDE192BBB97E300E2E50E /* InsightsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE182BBB97E300E2E50E /* InsightsPage.swift */; };
+		E60CDE212BBC316200E2E50E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60CDE202BBC316200E2E50E /* WidgetKit.framework */; };
+		E60CDE232BBC316200E2E50E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60CDE222BBC316200E2E50E /* SwiftUI.framework */; };
+		E60CDE262BBC316200E2E50E /* FocoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE252BBC316200E2E50E /* FocoWidgetBundle.swift */; };
+		E60CDE282BBC316200E2E50E /* FocoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE272BBC316200E2E50E /* FocoWidgetLiveActivity.swift */; };
+		E60CDE2A2BBC316200E2E50E /* FocoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE292BBC316200E2E50E /* FocoWidget.swift */; };
+		E60CDE2C2BBC316200E2E50E /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE2B2BBC316200E2E50E /* AppIntent.swift */; };
+		E60CDE2E2BBC316500E2E50E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E60CDE2D2BBC316500E2E50E /* Assets.xcassets */; };
+		E60CDE322BBC316500E2E50E /* FocoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E60CDE1E2BBC316200E2E50E /* FocoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E60CDE382BBC3E6600E2E50E /* FocoLiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE372BBC3E6600E2E50E /* FocoLiveActivityManager.swift */; };
+		E60CDE3B2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE3A2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift */; };
+		E60CDE3C2BBC44EE00E2E50E /* FocoLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60CDE3A2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift */; };
 		E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF32BB5198D00488178 /* FocoApp.swift */; };
 		E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF52BB5198D00488178 /* ContentView.swift */; };
 		E61BDBF82BB5198D00488178 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDBF72BB5198D00488178 /* Item.swift */; };
@@ -24,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E60CDE302BBC316500E2E50E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E61BDBE82BB5198D00488178 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E60CDE1D2BBC316200E2E50E;
+			remoteInfo = FocoWidgetExtension;
+		};
 		E61BDC032BB5199100488178 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E61BDBE82BB5198D00488178 /* Project object */;
@@ -40,6 +58,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E60CDE362BBC316500E2E50E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E60CDE322BBC316500E2E50E /* FocoWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		E60CDDF72BB84B8600E2E50E /* TaskDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailPage.swift; sourceTree = "<group>"; };
@@ -47,6 +79,17 @@
 		E60CDE142BBADF6800E2E50E /* FocusModePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusModePage.swift; sourceTree = "<group>"; };
 		E60CDE162BBAEB8100E2E50E /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		E60CDE182BBB97E300E2E50E /* InsightsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsPage.swift; sourceTree = "<group>"; };
+		E60CDE1E2BBC316200E2E50E /* FocoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FocoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E60CDE202BBC316200E2E50E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E60CDE222BBC316200E2E50E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E60CDE252BBC316200E2E50E /* FocoWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoWidgetBundle.swift; sourceTree = "<group>"; };
+		E60CDE272BBC316200E2E50E /* FocoWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		E60CDE292BBC316200E2E50E /* FocoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoWidget.swift; sourceTree = "<group>"; };
+		E60CDE2B2BBC316200E2E50E /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		E60CDE2D2BBC316500E2E50E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E60CDE2F2BBC316500E2E50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E60CDE372BBC3E6600E2E50E /* FocoLiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoLiveActivityManager.swift; sourceTree = "<group>"; };
+		E60CDE3A2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoLiveActivityAttributes.swift; sourceTree = "<group>"; };
 		E61BDBF02BB5198D00488178 /* Foco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E61BDBF32BB5198D00488178 /* FocoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoApp.swift; sourceTree = "<group>"; };
 		E61BDBF52BB5198D00488178 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +105,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E60CDE1B2BBC316200E2E50E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E60CDE232BBC316200E2E50E /* SwiftUI.framework in Frameworks */,
+				E60CDE212BBC316200E2E50E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E61BDBED2BB5198D00488178 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,12 +138,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E60CDE1F2BBC316200E2E50E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E60CDE202BBC316200E2E50E /* WidgetKit.framework */,
+				E60CDE222BBC316200E2E50E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E60CDE242BBC316200E2E50E /* FocoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				E60CDE252BBC316200E2E50E /* FocoWidgetBundle.swift */,
+				E60CDE272BBC316200E2E50E /* FocoWidgetLiveActivity.swift */,
+				E60CDE292BBC316200E2E50E /* FocoWidget.swift */,
+				E60CDE2B2BBC316200E2E50E /* AppIntent.swift */,
+				E60CDE2D2BBC316500E2E50E /* Assets.xcassets */,
+				E60CDE2F2BBC316500E2E50E /* Info.plist */,
+			);
+			path = FocoWidget;
+			sourceTree = "<group>";
+		};
+		E60CDE392BBC3E9300E2E50E /* FocoLiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				E60CDE372BBC3E6600E2E50E /* FocoLiveActivityManager.swift */,
+				E60CDE3A2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift */,
+			);
+			path = FocoLiveActivity;
+			sourceTree = "<group>";
+		};
 		E61BDBE72BB5198D00488178 = {
 			isa = PBXGroup;
 			children = (
 				E61BDBF22BB5198D00488178 /* Foco */,
+				E60CDE242BBC316200E2E50E /* FocoWidget */,
 				E61BDC052BB5199100488178 /* FocoTests */,
 				E61BDC0F2BB5199100488178 /* FocoUITests */,
+				E60CDE1F2BBC316200E2E50E /* Frameworks */,
 				E61BDBF12BB5198D00488178 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +187,7 @@
 				E61BDBF02BB5198D00488178 /* Foco.app */,
 				E61BDC022BB5199100488178 /* FocoTests.xctest */,
 				E61BDC0C2BB5199100488178 /* FocoUITests.xctest */,
+				E60CDE1E2BBC316200E2E50E /* FocoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,14 +195,15 @@
 		E61BDBF22BB5198D00488178 /* Foco */ = {
 			isa = PBXGroup;
 			children = (
-				E60CDDF92BB9643A00E2E50E /* Info.plist */,
 				E61BDC262BB7E1A300488178 /* Pages */,
 				E61BDC1F2BB519CC00488178 /* Views */,
 				E61BDC202BB519D700488178 /* Model */,
+				E60CDE392BBC3E9300E2E50E /* FocoLiveActivity */,
 				E61BDBF32BB5198D00488178 /* FocoApp.swift */,
 				E61BDBF52BB5198D00488178 /* ContentView.swift */,
 				E61BDBF72BB5198D00488178 /* Item.swift */,
 				E61BDBF92BB5199100488178 /* Assets.xcassets */,
+				E60CDDF92BB9643A00E2E50E /* Info.plist */,
 				E61BDBFB2BB5199100488178 /* Preview Content */,
 			);
 			path = Foco;
@@ -177,6 +264,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E60CDE1D2BBC316200E2E50E /* FocoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E60CDE332BBC316500E2E50E /* Build configuration list for PBXNativeTarget "FocoWidgetExtension" */;
+			buildPhases = (
+				E60CDE1A2BBC316200E2E50E /* Sources */,
+				E60CDE1B2BBC316200E2E50E /* Frameworks */,
+				E60CDE1C2BBC316200E2E50E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FocoWidgetExtension;
+			productName = FocoWidgetExtension;
+			productReference = E60CDE1E2BBC316200E2E50E /* FocoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E61BDBEF2BB5198D00488178 /* Foco */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E61BDC162BB5199100488178 /* Build configuration list for PBXNativeTarget "Foco" */;
@@ -184,10 +288,12 @@
 				E61BDBEC2BB5198D00488178 /* Sources */,
 				E61BDBED2BB5198D00488178 /* Frameworks */,
 				E61BDBEE2BB5198D00488178 /* Resources */,
+				E60CDE362BBC316500E2E50E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E60CDE312BBC316500E2E50E /* PBXTargetDependency */,
 			);
 			name = Foco;
 			productName = Foco;
@@ -240,6 +346,9 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					E60CDE1D2BBC316200E2E50E = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					E61BDBEF2BB5198D00488178 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -269,11 +378,20 @@
 				E61BDBEF2BB5198D00488178 /* Foco */,
 				E61BDC012BB5199100488178 /* FocoTests */,
 				E61BDC0B2BB5199100488178 /* FocoUITests */,
+				E60CDE1D2BBC316200E2E50E /* FocoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E60CDE1C2BBC316200E2E50E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E60CDE2E2BBC316500E2E50E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E61BDBEE2BB5198D00488178 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -300,10 +418,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E60CDE1A2BBC316200E2E50E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E60CDE3C2BBC44EE00E2E50E /* FocoLiveActivityAttributes.swift in Sources */,
+				E60CDE262BBC316200E2E50E /* FocoWidgetBundle.swift in Sources */,
+				E60CDE2C2BBC316200E2E50E /* AppIntent.swift in Sources */,
+				E60CDE282BBC316200E2E50E /* FocoWidgetLiveActivity.swift in Sources */,
+				E60CDE2A2BBC316200E2E50E /* FocoWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E61BDBEC2BB5198D00488178 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60CDE3B2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift in Sources */,
 				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
 				E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */,
 				E60CDE172BBAEB8100E2E50E /* ProfilePage.swift in Sources */,
@@ -312,6 +443,7 @@
 				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
 				E60CDE152BBADF6800E2E50E /* FocusModePage.swift in Sources */,
 				E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */,
+				E60CDE382BBC3E6600E2E50E /* FocoLiveActivityManager.swift in Sources */,
 				E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +468,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E60CDE312BBC316500E2E50E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E60CDE1D2BBC316200E2E50E /* FocoWidgetExtension */;
+			targetProxy = E60CDE302BBC316500E2E50E /* PBXContainerItemProxy */;
+		};
 		E61BDC042BB5199100488178 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E61BDBEF2BB5198D00488178 /* Foco */;
@@ -349,6 +486,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E60CDE342BBC316500E2E50E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FocoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.Foco.FocoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E60CDE352BBC316500E2E50E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FocoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.Foco.FocoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E61BDC142BB5199100488178 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -471,6 +662,7 @@
 		E61BDC172BB5199100488178 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -501,6 +693,7 @@
 		E61BDC182BB5199100488178 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -607,6 +800,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E60CDE332BBC316500E2E50E /* Build configuration list for PBXNativeTarget "FocoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E60CDE342BBC316500E2E50E /* Debug */,
+				E60CDE352BBC316500E2E50E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E61BDBEB2BB5198D00488178 /* Build configuration list for PBXProject "Foco" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
