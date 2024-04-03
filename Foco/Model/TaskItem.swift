@@ -111,6 +111,74 @@ class TaskItem {
         }
         return FocusModeState.incoming
     }
+    
+    static func getNumberTasksCompletedThisWeek(from tasks: [TaskItem]) -> Int {
+        // Define the current date and calendar
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        // Filter tasks that are completed within this week
+        let completedThisWeek = tasks.filter { task in
+            let isDone = task.isDone
+            let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate))!
+            let endOfWeek = calendar.date(byAdding: .day, value: 7, to: startOfWeek)!
+            
+            return isDone && (task.createdDate >= startOfWeek && task.createdDate < endOfWeek)
+        }
+        
+        // Return the count of tasks
+        return completedThisWeek.count
+    }
+    
+    static func getTotalDistractionTimeThisWeekFormatted(from tasks: [TaskItem]) -> String {
+        // Define the current date and calendar
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        // Calculate the total distraction time this week
+        let totalDistractionSeconds = tasks.reduce(0) { partialResult, task in
+            let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate))!
+            let endOfWeek = calendar.date(byAdding: .day, value: 7, to: startOfWeek)!
+            
+            if task.createdDate >= startOfWeek && task.createdDate < endOfWeek {
+                return partialResult + task.distractionTimeSecs
+            } else {
+                return partialResult
+            }
+        }
+        
+        // Convert total distraction time into hours and minutes
+        let hours = totalDistractionSeconds / 3600
+        let minutes = (totalDistractionSeconds % 3600) / 60
+        
+        // Return the formatted string
+        return "\(hours)h \(minutes)m"
+    }
+    
+    static func getTotalTasksCompletedAllTime(from tasks: [TaskItem]) -> Int {
+        // Filter tasks that are marked as done
+        let completedTasks = tasks.filter { $0.isDone }
+        
+        // Return the count of completed tasks
+        return completedTasks.count
+    }
+    
+    static func getTotalTasksThisWeek(from tasks: [TaskItem]) -> Int {
+        // Define the current date and calendar
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        // Filter tasks that were created within this week
+        let tasksThisWeek = tasks.filter { task in
+            let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate))!
+            let endOfWeek = calendar.date(byAdding: .day, value: 7, to: startOfWeek)!
+            
+            return task.createdDate >= startOfWeek && task.createdDate < endOfWeek
+        }
+        
+        // Return the count of tasks
+        return tasksThisWeek.count
+    }
 }
 
 enum FocusModeState : String {

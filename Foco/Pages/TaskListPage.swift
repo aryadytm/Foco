@@ -1,10 +1,3 @@
-//
-//  TaskListPage.swift
-//  Foco
-//
-//  Created by Arya Adyatma on 28/03/24.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,40 +5,61 @@ struct TaskListPage: View {
     @Query private var taskItems: [TaskItem]
     
     @State private var selectedDate: Date = Date()
-
+    
     let welcomeName: String = "Arya"
     
     var currentDate: String {
-        "It's \(getCurrentDateStr())"
+        "Today is \(getCurrentDateStr())"
     }
     
-    var tasksCompleted: String {
-        "\(taskItems.filter { $0.isDone && isDateInCurrentWeek($0.startDate) }.count) / \(taskItems.filter { isDateInCurrentWeek($0.startDate) }.count)"
-    }
     var distractionTime: String = "0h 0m"
     
-//    let taskItems: [TaskItem] = [
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 2, to: Date())!, title: "Math: Linear Algebra", desc: "Chapter 5: Vector Spaces", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!, title: "Science: Chemistry", desc: "Lab Experiment: Acids & Bases", isDone: false),
-//        TaskItem(startDate: Date(), endDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date())!, title: "History: World War II", desc: "Lecture on Battle of Stalingrad", isDone: false)
-//    ]
-
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                HeaderView(welcomeName: welcomeName, currentDate: currentDate)
-                    .padding(.horizontal)
-                    .padding(.top)
-                CardsView(tasksCompleted: tasksCompleted, distractionTime: distractionTime)
-                    .padding(.horizontal)
-                Text("This week")
-                    .font(.caption)
-                    .padding(.horizontal)
-                   
-                WeekDaysView(selectedDate: $selectedDate)
-                    .padding(.horizontal)
+                HStack {
+                    Spacer()
+                    VStack {
+                        Image("FocoLogo")
+                            .padding()
+                            .padding(.bottom, 10)
+                    }
+                    Spacer()
+                }
+                .background(Color.focoPrimary)
+                
+                VStack {
+                    WeekDaysView(selectedDate: $selectedDate)
+                        .padding(.top)
+                        .padding(.leading)
+                    Text(currentDate)
+                        .font(.subheadline)
+                        .padding(.bottom)
+                }
+                .background(Color.white)
+                
+                
+                HStack{
+                    NavigationLink{
+                        TaskDetailPage(existingTaskId: "")
+                    } label:{
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10).foregroundColor(.focoPrimary
+                            ).frame(maxWidth: .infinity,maxHeight: 50)
+                            HStack{
+                                Image(systemName: "plus.circle.fill").foregroundColor(.white)
+                                Text("New Task").foregroundColor(.white
+                                )
+                            }
+                        }
+                    }
+                }
+                .padding()
+                
                 TasksView(taskItems: getTaskItemsBySelectedDateDay())
             }
+            .background(Color.focoBackground)
         }
         .onAppear {
             
@@ -64,7 +78,7 @@ struct TaskListPage: View {
     func getCurrentDateStr() -> String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, d MMMM"
+        dateFormatter.dateFormat = "EEEE, d MMMM YYYY"
         let formattedDate = dateFormatter.string(from: currentDate)
         return formattedDate
     }
@@ -80,49 +94,6 @@ struct TaskListPage: View {
     
 }
 
-struct HeaderView: View {
-    let welcomeName: String
-    let currentDate: String
-
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Welcome, \(welcomeName)!")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Text(currentDate)
-                    .font(.title3)
-                    .foregroundColor(.gray)
-            }
-            
-            Spacer()
-                        
-            NavigationLink {
-                TaskDetailPage(existingTaskId: "")
-            } label: {
-                Image(systemName: "plus")
-                    .frame(width: 40, height: 40)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .clipShape(Circle())
-            }
-            
-        }
-    }
-}
-
-struct CardsView: View {
-    let tasksCompleted: String
-    let distractionTime: String
-
-    var body: some View {
-        HStack {
-            CardView(textUpper: "Tasks completed this week", textBottom: tasksCompleted)
-            CardView(textUpper: "Distraction time this week", textBottom: distractionTime)
-        }
-        .padding(.vertical)
-    }
-}
 
 
 struct CardView: View {
@@ -139,12 +110,12 @@ struct CardView: View {
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .padding(.top, 2)
                 .padding(.bottom, 20)
-            }
-            .frame(maxWidth: .infinity, minHeight: 100)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(20)
-
         }
+        .frame(maxWidth: .infinity, minHeight: 100)
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(20)
+        
+    }
 }
 
 struct WeekDaysView: View {
@@ -166,7 +137,7 @@ struct WeekDaysView: View {
         
         for i in 0..<7 {
             if let date = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
-                let weekDayName = calendar.shortWeekdaySymbols[i]
+                let weekDayName = calendar.veryShortWeekdaySymbols[i]
                 let dayOfMonthInt = calendar.component(.day, from: date)
                 weekDays.append(Day(date: date, dayName: weekDayName, dayOfMonthInt: dayOfMonthInt))
             }
@@ -179,6 +150,7 @@ struct WeekDaysView: View {
         getCurrentDayOfMonth()
     }
     
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
@@ -188,21 +160,21 @@ struct WeekDaysView: View {
                         print(selectedDate)
                     } label: {
                         VStack {
-                            Text(String(days[index].dayOfMonthInt))
-                                .fontWeight(.bold)
-                                .padding(.top, 10)
-                                .padding(.horizontal, 15)
-                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
                             Text(days[index].dayName)
                                 .font(.caption)
-                                .padding(.bottom, 10)
-                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .blue : .primary)
+                                .foregroundColor(.primary)
+                            Text(String(days[index].dayOfMonthInt))
+//                                .fontWeight(.bold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 15)
+                                .foregroundColor(days[index].dayOfMonthInt == selectedDayOfMonth ? .white : .primary)
+                                .background(days[index].dayOfMonthInt == selectedDayOfMonth ? .focoPrimary : .white)
+                                .cornerRadius(100)
                         }
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(15)
                     }
                 }
             }
+            
         }
         .padding(.bottom)
     }
@@ -225,36 +197,45 @@ struct TasksView: View {
     let taskItems: [TaskItem]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                
-                Text("")
-                
-                if taskItems.isEmpty {
-                    Spacer()
-                    Text("You have no tasks.")
-                    HStack {
-                        Spacer()
-                    }
-                }
-                
-                ForEach(getTasksSorted(), id: \.self) { item in
+        HStack {
+            ScrollView {
+                VStack {
                     
-                    NavigationLink {
-                        TaskDetailPage(existingTaskId: item.id)
+                    Text("")
+                    
+                    if taskItems.isEmpty {
+                        VStack {
+                            Spacer()
+                        }
+                        
+                        Image("3 1")
+                        HStack {
+                            Spacer()
+                            
+                        }
+                        VStack{
+                            Text("No tasks?")
+                            Text("Add a new task to start!")
+                        }
                     }
+                    
+                    ForEach(getTasksSorted(), id: \.self) { item in
+                        
+                        NavigationLink {
+                            TaskDetailPage(existingTaskId: item.id)
+                        }
                     label: {
                         TaskItemView(taskItem: item)
                     }
-                }
-                
-                if !taskItems.isEmpty {
-                    Spacer()
+                    }
+                    
+                    if !taskItems.isEmpty {
+                        Spacer()
+                    }
                 }
             }
+            .cornerRadius(20)
         }
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(20)
     }
     
     func getTasksSorted() -> [TaskItem] {
@@ -279,9 +260,9 @@ struct TaskItemView: View {
             Rectangle()
                 .frame(width: 8, height: 50)
                 .cornerRadius(2)
-                .foregroundColor(taskItem.isDone ? Color.green : Color.yellow)
+                .foregroundColor(Color.green)
             VStack(alignment: .leading) {
-                Text(taskItem.title)
+                Text(taskItem.emoji + " " + taskItem.title)
                     .fontWeight(.medium)
                     .padding(.horizontal, 10)
                 Text("\(getClock(date: taskItem.startDate)) - \(getClock(date: taskItem.endDate))")

@@ -22,11 +22,14 @@ struct TaskDetailPage: View {
     @State private var description = ""
     @State private var isDone = false
     @State private var errorMessage = ""
+    @State private var emoji = ""
+
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Task Details")) {
+                    EmojiPicker(selectedEmoji: $emoji)
                     TextField("Title", text: $title)
                     TextField("Description", text: $description, axis: .vertical)
                         .lineLimit(3...10)
@@ -37,12 +40,12 @@ struct TaskDetailPage: View {
                     DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
                 }
                 
-                Section {
-                    Toggle(isOn: $isDone) {
-                        Text("Completed")
-                    }
-                }
-                
+//                Section {
+//                    Toggle(isOn: $isDone) {
+//                        Text("Completed")
+//                    }
+//                }
+
                 if existingTaskId.isEmpty {
                     Section {
                         Button(action: addTask) {
@@ -104,6 +107,8 @@ struct TaskDetailPage: View {
         }
         
         let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
+        newTask.emoji = emoji
+        
         modelContext.insert(newTask)
         
         dismiss()
@@ -120,6 +125,7 @@ struct TaskDetailPage: View {
         thisTask.startDate = startDate
         thisTask.endDate = endDate
         thisTask.isDone = isDone
+        thisTask.emoji = emoji
         dismiss()
     }
     
@@ -143,6 +149,26 @@ struct TaskDetailPage: View {
     
 }
 
+struct EmojiPicker: View {
+    @Binding var selectedEmoji: String
+    
+    
+    let emojis = ["😊", "😂", "😍", "🥺", "😎", "🤩", "😴", "😡", "🤯", "🥳"]
+    
+    var body: some View {
+        VStack {
+            
+            Picker("Emoji Tag", selection: $selectedEmoji) {
+                ForEach(emojis, id: \.self) { emoji in
+                    Text(emoji)
+                }
+            }
+            .pickerStyle(MenuPickerStyle())
+            .foregroundColor(.black)
+        }
+    }
+}
+
 fileprivate let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
@@ -154,3 +180,4 @@ fileprivate let dateFormatter: DateFormatter = {
     TaskDetailPage()
         .modelContainer(for: TaskItem.self, inMemory: true)
 }
+
