@@ -22,7 +22,7 @@ struct TaskDetailPage: View {
     @State private var description = ""
     @State private var isDone = false
     @State private var errorMessage = ""
-    @State private var emoji = ""
+    @State private var emoji = "😊"
 
     
     var body: some View {
@@ -144,6 +144,16 @@ struct TaskDetailPage: View {
             errorMessage = "End Date must be after Start Date!"
             return true
         }
+        
+        let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
+        let overlapTask = newTask.isTimerangeOverlaps(otherTasks: tasks)
+        
+        if overlapTask != nil {
+            let overlapTaskItem = overlapTask!
+            errorMessage = "Your selected time range is already occupied by other task: \(overlapTaskItem.title) (\(overlapTaskItem.getTimerangeStr()))."
+            return true
+        }
+            
         return false
     }
     

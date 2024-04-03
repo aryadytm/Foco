@@ -35,6 +35,15 @@ class TaskItem {
         self.isDone = isDone
     }
     
+    func isTimerangeOverlaps(otherTasks: [TaskItem]) -> TaskItem? {
+        for otherTask in otherTasks {
+            if (startDate < otherTask.endDate && endDate > otherTask.startDate) {
+                return otherTask
+            }
+        }
+        return nil
+    }
+    
     func getProgress() -> Float {
         let totalSeconds = endDate.timeIntervalSince(startDate)
         let currentTime = Date().timeIntervalSince(startDate)
@@ -46,7 +55,7 @@ class TaskItem {
         distractionTimeSecs += secs
     }
     
-    func getClockStr() -> String {
+    func getTimerangeStr() -> String {
         let clockFormatter = DateFormatter()
         clockFormatter.dateFormat = "HH:mm"
         return "\(clockFormatter.string(from: startDate)) - \(clockFormatter.string(from: endDate))"

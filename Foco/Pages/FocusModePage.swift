@@ -133,7 +133,7 @@ struct FocusModeView: View {
                 .fontWeight(.bold)
                 .padding(.bottom, 2)
             
-            Text(taskItem.getClockStr())
+            Text(taskItem.getTimerangeStr())
             
             if focusModeState == .incoming {
                 ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
@@ -252,7 +252,7 @@ struct BottomStateIncoming: View {
                 .background(Color.focoPrimary)
                 .cornerRadius(10)
             }
-            Text("Task will start automatically in **\(taskItem.getDurationUntilStartedStr())**")
+            Text("Task will start automatically in **\(taskTimerStr)**")
                 .font(.caption)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
@@ -266,6 +266,7 @@ struct BottomStateIncoming: View {
     
     func onTickSecond() {
         taskTimerStr = taskItem.getDurationUntilStartedStr()
+        print(taskItem.getDurationUntilStartedStr())
     }
     
 }
