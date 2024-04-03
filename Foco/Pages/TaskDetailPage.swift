@@ -152,7 +152,6 @@ struct TaskDetailPage: View {
 struct EmojiPicker: View {
     @Binding var selectedEmoji: String
     
-    
     let emojis = ["😊", "😂", "😍", "🥺", "😎", "🤩", "😴", "😡", "🤯", "🥳"]
     
     var body: some View {

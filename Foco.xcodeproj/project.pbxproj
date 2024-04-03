@@ -32,6 +32,11 @@
 		E61BDC132BB5199100488178 /* FocoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */; };
 		E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61BDC222BB51A1F00488178 /* TaskListPage.swift */; };
 		E6DBFB592BBD8B2100F841FB /* AboutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB582BBD8B2100F841FB /* AboutPage.swift */; };
+		E6DBFB5B2BBDAFA000F841FB /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB5A2BBDAFA000F841FB /* PageModel.swift */; };
+		E6DBFB5D2BBDB07200F841FB /* OnboardingPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB5C2BBDB07200F841FB /* OnboardingPages.swift */; };
+		E6DBFB5F2BBDB0AC00F841FB /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB5E2BBDB0AC00F841FB /* ProfileModel.swift */; };
+		E6DBFB622BBDC59E00F841FB /* KeyboardGuardian.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB612BBDC59E00F841FB /* KeyboardGuardian.swift */; };
+		E6DBFB642BBDC74600F841FB /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBFB632BBDC74600F841FB /* AdaptsToKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +107,11 @@
 		E61BDC122BB5199100488178 /* FocoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E61BDC222BB51A1F00488178 /* TaskListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPage.swift; sourceTree = "<group>"; };
 		E6DBFB582BBD8B2100F841FB /* AboutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPage.swift; sourceTree = "<group>"; };
+		E6DBFB5A2BBDAFA000F841FB /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
+		E6DBFB5C2BBDB07200F841FB /* OnboardingPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPages.swift; sourceTree = "<group>"; };
+		E6DBFB5E2BBDB0AC00F841FB /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		E6DBFB612BBDC59E00F841FB /* KeyboardGuardian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGuardian.swift; sourceTree = "<group>"; };
+		E6DBFB632BBDC74600F841FB /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +205,7 @@
 		E61BDBF22BB5198D00488178 /* Foco */ = {
 			isa = PBXGroup;
 			children = (
+				E6DBFB602BBDC59100F841FB /* Utils */,
 				E61BDC262BB7E1A300488178 /* Pages */,
 				E61BDC1F2BB519CC00488178 /* Views */,
 				E61BDC202BB519D700488178 /* Model */,
@@ -245,6 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				E60CDDF52BB84A6A00E2E50E /* TaskItem.swift */,
+				E6DBFB5A2BBDAFA000F841FB /* PageModel.swift */,
+				E6DBFB5E2BBDB0AC00F841FB /* ProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,8 +270,18 @@
 				E60CDE142BBADF6800E2E50E /* FocusModePage.swift */,
 				E60CDE162BBAEB8100E2E50E /* InsightsPage.swift */,
 				E6DBFB582BBD8B2100F841FB /* AboutPage.swift */,
+				E6DBFB5C2BBDB07200F841FB /* OnboardingPages.swift */,
 			);
 			path = Pages;
+			sourceTree = "<group>";
+		};
+		E6DBFB602BBDC59100F841FB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E6DBFB612BBDC59E00F841FB /* KeyboardGuardian.swift */,
+				E6DBFB632BBDC74600F841FB /* AdaptsToKeyboard.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,15 +458,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				E60CDE3B2BBC3EB300E2E50E /* FocoLiveActivityAttributes.swift in Sources */,
+				E6DBFB622BBDC59E00F841FB /* KeyboardGuardian.swift in Sources */,
+				E6DBFB642BBDC74600F841FB /* AdaptsToKeyboard.swift in Sources */,
+				E6DBFB5F2BBDB0AC00F841FB /* ProfileModel.swift in Sources */,
 				E61BDBF62BB5198D00488178 /* ContentView.swift in Sources */,
 				E6DBFB592BBD8B2100F841FB /* AboutPage.swift in Sources */,
 				E60CDDF62BB84A6A00E2E50E /* TaskItem.swift in Sources */,
+				E6DBFB5B2BBDAFA000F841FB /* PageModel.swift in Sources */,
 				E60CDE172BBAEB8100E2E50E /* InsightsPage.swift in Sources */,
 				E61BDBF82BB5198D00488178 /* Item.swift in Sources */,
 				E61BDBF42BB5198D00488178 /* FocoApp.swift in Sources */,
 				E60CDE152BBADF6800E2E50E /* FocusModePage.swift in Sources */,
 				E60CDDF82BB84B8600E2E50E /* TaskDetailPage.swift in Sources */,
 				E60CDE382BBC3E6600E2E50E /* FocoLiveActivityManager.swift in Sources */,
+				E6DBFB5D2BBDB07200F841FB /* OnboardingPages.swift in Sources */,
 				E61BDC232BB51A1F00488178 /* TaskListPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

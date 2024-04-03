@@ -10,7 +10,9 @@ import SwiftData
 
 struct InsightsPage: View {
     @State private var keepScreenOn = false
+    
     @Query private var taskItems: [TaskItem]
+    @Query private var users: [ProfileModel]
     
     var numCompletedTasksAllTime: Int {
         TaskItem.getTotalTasksCompletedAllTime(from: taskItems)
@@ -26,6 +28,13 @@ struct InsightsPage: View {
     
     var totalDistractionTimeThisWeek: String {
         TaskItem.getTotalDistractionTimeThisWeekFormatted(from: taskItems)
+    }
+    
+    var user: ProfileModel {
+        if users.isEmpty {
+            return ProfileModel(name: "Arya Adyatma")
+        }
+        return users.first!
     }
     
     var body: some View {
@@ -58,7 +67,7 @@ struct InsightsPage: View {
 //                                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                                 
                                 VStack(alignment: .leading) {
-                                    Text("Hi, Arya!")
+                                    Text("Hi, \(user.name)!")
                                         .font(.title2)
                                         .fontWeight(.bold)
                                     Text("You have completed **\(numCompletedTasksAllTime) tasks** since using this app.")
