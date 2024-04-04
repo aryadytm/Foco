@@ -95,7 +95,7 @@ struct OnboardingPages: View {
 
                 if page == pages.last {
                     VStack {
-                        NavigationLink(destination: ContentView(), tag: "B", selection: $selection) { EmptyView() }
+//                        NavigationLink(destination: ContentView(), tag: "B", selection: $selection) { EmptyView() }
                         Text(page.name)
                             .font(.title)
                             .fontWeight(.semibold)
@@ -117,14 +117,17 @@ struct OnboardingPages: View {
                             .cornerRadius(10)
                             .ignoresSafeArea(.keyboard, edges: .bottom)
 
-                        Button(action: {
-                            if inputValue.isEmpty {
-                                return
+                        Button {
+                            withAnimation {
+                                if inputValue.isEmpty {
+                                    return
+                                }
+                                let newUser = ProfileModel(name: inputValue)
+                                modelContext.insert(newUser)
+                                //                            selection = "B"
                             }
-                            let newUser = ProfileModel(name: inputValue)
-                            modelContext.insert(newUser)
-                            selection = "B"
-                        }) {
+                            
+                        } label: {
                             Text("Let's Go!")
                                 .frame(maxWidth: .infinity)
                         }

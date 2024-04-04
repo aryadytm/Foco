@@ -133,7 +133,7 @@ struct FocusModeView: View {
                 .fontWeight(.bold)
                 .padding(.bottom, 2)
             
-            Text(taskItem.getClockStr())
+            Text(taskItem.getTimerangeStr())
             
             if focusModeState == .incoming {
                 ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
@@ -190,7 +190,11 @@ struct FocusModeView: View {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active && lastBackgroundTimestamp > 0 {
                 let distractionSecs = Int(Date().timeIntervalSince1970) - lastBackgroundTimestamp
-                taskItem.addDistractionTimeSecs(secs: distractionSecs)
+                
+                if focusModeState == .inProgress || focusModeState == .failed {
+                    taskItem.addDistractionTimeSecs(secs: distractionSecs)
+                }
+                
                 activityManager.stop()
                 isBackground = false
             } else if newPhase == .background {
@@ -252,7 +256,7 @@ struct BottomStateIncoming: View {
                 .background(Color.focoPrimary)
                 .cornerRadius(10)
             }
-            Text("Task will start automatically in **\(taskItem.getDurationUntilStartedStr())**")
+            Text("Task will start automatically in **\(taskTimerStr)**")
                 .font(.caption)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
@@ -266,6 +270,7 @@ struct BottomStateIncoming: View {
     
     func onTickSecond() {
         taskTimerStr = taskItem.getDurationUntilStartedStr()
+        print(taskItem.getDurationUntilStartedStr())
     }
     
 }

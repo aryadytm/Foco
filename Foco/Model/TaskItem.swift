@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Model
 class TaskItem {
@@ -35,6 +36,18 @@ class TaskItem {
         self.isDone = isDone
     }
     
+    func isTimerangeOverlaps(otherTasks: [TaskItem]) -> TaskItem? {
+        for otherTask in otherTasks {
+            if self == otherTask {
+                continue
+            }
+            if (startDate < otherTask.endDate && endDate > otherTask.startDate) {
+                return otherTask
+            }
+        }
+        return nil
+    }
+    
     func getProgress() -> Float {
         let totalSeconds = endDate.timeIntervalSince(startDate)
         let currentTime = Date().timeIntervalSince(startDate)
@@ -46,7 +59,7 @@ class TaskItem {
         distractionTimeSecs += secs
     }
     
-    func getClockStr() -> String {
+    func getTimerangeStr() -> String {
         let clockFormatter = DateFormatter()
         clockFormatter.dateFormat = "HH:mm"
         return "\(clockFormatter.string(from: startDate)) - \(clockFormatter.string(from: endDate))"
@@ -110,6 +123,21 @@ class TaskItem {
             return FocusModeState.incoming
         }
         return FocusModeState.incoming
+    }
+    
+    func getColor() -> Color {
+        let focusModeState = getFocusModeState()
+        if focusModeState == .accomplished {
+            return .green
+        }
+        if focusModeState == .failed {
+            return .red
+        }
+        if focusModeState == .inProgress {
+            return .yellow
+        }
+        return .gray
+        
     }
     
     static func getNumberTasksCompletedThisWeek(from tasks: [TaskItem]) -> Int {
