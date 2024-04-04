@@ -244,7 +244,7 @@ struct TasksView: View {
 }
 
 struct TaskItemView: View {
-    let taskItem: TaskItem
+    var taskItem: TaskItem
     
     var body: some View {
         HStack {
@@ -260,7 +260,7 @@ struct TaskItemView: View {
             Rectangle()
                 .frame(width: 8, height: 50)
                 .cornerRadius(2)
-                .foregroundColor(Color.green)
+                .foregroundColor(taskItem.getColor())
             VStack(alignment: .leading) {
                 Text(taskItem.emoji + " " + taskItem.title)
                     .fontWeight(.medium)

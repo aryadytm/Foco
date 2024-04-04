@@ -84,15 +84,15 @@ struct TaskDetailPage: View {
         }
     }
     
-    func getExistingTask() -> TaskItem {
+    func getExistingTask() -> TaskItem? {
         let thisTask = tasks.first {
             $0.id == existingTaskId
-        }!
+        }
         return thisTask
     }
     
     func onExistingTaskItem() {
-        let thisTask = self.getExistingTask()
+        let thisTask = self.getExistingTask()!
         title = thisTask.title
         description = thisTask.desc
         startDate = thisTask.startDate
@@ -119,7 +119,7 @@ struct TaskDetailPage: View {
             return
         }
         
-        let thisTask = self.getExistingTask()
+        let thisTask = self.getExistingTask()!
         thisTask.title = title
         thisTask.desc = description
         thisTask.startDate = startDate
@@ -130,7 +130,7 @@ struct TaskDetailPage: View {
     }
     
     func deleteTask() {
-        let thisTask = self.getExistingTask()
+        let thisTask = self.getExistingTask()!
         modelContext.delete(thisTask)
         dismiss()
     }
@@ -145,8 +145,15 @@ struct TaskDetailPage: View {
             return true
         }
         
-        let newTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
-        let overlapTask = newTask.isTimerangeOverlaps(otherTasks: tasks)
+        var activeTask = TaskItem(startDate: startDate, endDate: endDate, title: title, desc: description, isDone: isDone)
+        
+        var editingTask = self.getExistingTask()
+        
+        if editingTask != nil {
+            activeTask = editingTask!
+        }
+        
+        let overlapTask = activeTask.isTimerangeOverlaps(otherTasks: tasks)
         
         if overlapTask != nil {
             let overlapTaskItem = overlapTask!

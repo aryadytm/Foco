@@ -190,7 +190,11 @@ struct FocusModeView: View {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active && lastBackgroundTimestamp > 0 {
                 let distractionSecs = Int(Date().timeIntervalSince1970) - lastBackgroundTimestamp
-                taskItem.addDistractionTimeSecs(secs: distractionSecs)
+                
+                if focusModeState == .inProgress || focusModeState == .failed {
+                    taskItem.addDistractionTimeSecs(secs: distractionSecs)
+                }
+                
                 activityManager.stop()
                 isBackground = false
             } else if newPhase == .background {

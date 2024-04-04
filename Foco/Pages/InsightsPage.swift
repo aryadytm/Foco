@@ -14,6 +14,9 @@ struct InsightsPage: View {
     @Query private var taskItems: [TaskItem]
     @Query private var users: [ProfileModel]
     
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) var dismiss
+
     var numCompletedTasksAllTime: Int {
         TaskItem.getTotalTasksCompletedAllTime(from: taskItems)
     }
@@ -96,11 +99,11 @@ struct InsightsPage: View {
                             VStack(spacing: 10) {
                                 NavigationLink(destination: Text("Coming Soon!")) {
                                     SettingRow(title: "Whitelist Apps", iconName: "chevron.right")
-                                }
+                                }.foregroundColor(.black)
                                 
                                 Toggle(isOn: $keepScreenOn) {
                                     Text("Keep Screen On")
-                                }
+                                }.foregroundColor(.black)
                                 .padding()
                                 
                             }
@@ -111,7 +114,15 @@ struct InsightsPage: View {
                             VStack(spacing: 10) {
                                 NavigationLink(destination: AboutPage()) {
                                     SettingRow(title: "About", iconName: "chevron.right")
+                                }.foregroundColor(.black)
+
+                                Button {
+                                    clearData()
+                                } label : {
+                                    SettingRow(title: "Clear Data", iconName: "chevron.right")
+                                        .foregroundColor(.red)
                                 }
+                                
                                 
                             }
                             .background(Color.white)
@@ -124,6 +135,16 @@ struct InsightsPage: View {
             }
         }
     }
+    
+    func clearData() {
+        for user in users {
+            modelContext.delete(user)
+        }
+        for taskItem in taskItems {
+            modelContext.delete(taskItem)
+        }
+    }
+    
 }
 
 struct StatisticView: View {
@@ -150,7 +171,6 @@ struct SettingRow: View {
     var body: some View {
         HStack {
             Text(title)
-                .foregroundColor(.black)
             Spacer()
             Image(systemName: iconName)
         }
