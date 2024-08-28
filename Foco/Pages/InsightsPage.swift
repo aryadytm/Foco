@@ -10,13 +10,14 @@ import SwiftData
 
 struct InsightsPage: View {
     @State private var keepScreenOn = false
+    @State private var showingClearDataAlert = false
     
     @Query private var taskItems: [TaskItem]
     @Query private var users: [ProfileModel]
     
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
-
+    
     var numCompletedTasksAllTime: Int {
         TaskItem.getTotalTasksCompletedAllTime(from: taskItems)
     }
@@ -61,14 +62,6 @@ struct InsightsPage: View {
                         VStack(alignment: .leading, spacing: 20) {
                             // Profile Image and Greeting
                             HStack(alignment: .top) {
-//                                Image(systemName: "person.circle")
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fill)
-//                                    .frame(width: 70, height: 70)
-//                                    .clipShape(Circle())
-//                                    .padding(.top, 8)
-//                                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                                
                                 VStack(alignment: .leading) {
                                     Text("Hi, \(user.name)!")
                                         .font(.title2)
@@ -93,7 +86,7 @@ struct InsightsPage: View {
                                     .background(Color.white)
                                     .cornerRadius(10)
                             }
-                   
+                            
                             
                             // Settings
                             VStack(spacing: 10) {
@@ -104,7 +97,7 @@ struct InsightsPage: View {
                                 Toggle(isOn: $keepScreenOn) {
                                     Text("Keep Screen On")
                                 }.foregroundColor(.black)
-                                .padding()
+                                    .padding()
                                 
                             }
                             .background(Color.white)
@@ -115,15 +108,13 @@ struct InsightsPage: View {
                                 NavigationLink(destination: AboutPage()) {
                                     SettingRow(title: "About", iconName: "chevron.right")
                                 }.foregroundColor(.black)
-
+                                
                                 Button {
-                                    clearData()
+                                    showingClearDataAlert = true
                                 } label : {
                                     SettingRow(title: "Clear Data", iconName: "chevron.right")
                                         .foregroundColor(.red)
                                 }
-                                
-                                
                             }
                             .background(Color.white)
                             .cornerRadius(10)
@@ -133,10 +124,22 @@ struct InsightsPage: View {
                     .background(Color(.systemGroupedBackground))
                 }
             }
+            .alert("Clear All Data", isPresented: $showingClearDataAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Yes", role: .destructive) {
+                    performClearData()
+                }
+            } message: {
+                Text("Are you sure you want to clear all data? This action cannot be undone.")
+            }
         }
     }
     
     func clearData() {
+        showingClearDataAlert = true
+    }
+    
+    func performClearData() {
         for user in users {
             modelContext.delete(user)
         }
@@ -144,7 +147,6 @@ struct InsightsPage: View {
             modelContext.delete(taskItem)
         }
     }
-    
 }
 
 struct StatisticView: View {

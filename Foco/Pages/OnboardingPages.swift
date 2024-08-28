@@ -58,7 +58,7 @@ struct OnboardingPages: View {
                 Image(page.image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 350, height: 350)
+                    .frame(width: 270, height: 270)
                     .padding()
                     .padding(.top)
                 Spacer()
@@ -95,7 +95,6 @@ struct OnboardingPages: View {
 
                 if page == pages.last {
                     VStack {
-//                        NavigationLink(destination: ContentView(), tag: "B", selection: $selection) { EmptyView() }
                         Text(page.name)
                             .font(.title)
                             .fontWeight(.semibold)
@@ -124,7 +123,6 @@ struct OnboardingPages: View {
                                 }
                                 let newUser = ProfileModel(name: inputValue)
                                 modelContext.insert(newUser)
-                                //                            selection = "B"
                             }
                             
                         } label: {

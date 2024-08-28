@@ -49,15 +49,16 @@ struct AboutPage: View {
                             Text("Build")
                             Spacer()
                             Text(buildNumber)
-                        }                        }
-                    
-                    Section {
-                        ForEach(menuItems, id: \.0) { item in
-                            NavigationLink(destination: Text(item.1)) {
-                                Text(item.0)
-                            }
                         }
                     }
+                    
+//                    Section {
+//                        ForEach(menuItems, id: \.0) { item in
+//                            NavigationLink(destination: Text(item.1)) {
+//                                Text(item.0)
+//                            }
+//                        }
+//                    }
                 }
             }
         }

@@ -9,12 +9,8 @@ import SwiftUI
 import SwiftData
 import ActivityKit
 
-
 struct FocusModePage: View {
-    
     @Query private var taskItems: [TaskItem]
-    
-//    @State var taskItem: TaskItem?
     
     @State var taskItem: TaskItem = TaskItem(
         startDate: Calendar.current.date(byAdding: .second, value: 10, to: Date())!,
@@ -25,7 +21,8 @@ struct FocusModePage: View {
     )
     
     @State var focusModeState: FocusModeState = .incoming
- 
+    @State var hasNoTasks: Bool = true
+    
     private var currentDate: String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -34,10 +31,7 @@ struct FocusModePage: View {
         return formattedDate
     }
     
-    @State var hasNoTasks: Bool = true
-    
     func refreshPage() {
-        // TODO: Only one task at same time range!
         hasNoTasks = true
         
         guard !taskItems.isEmpty else {
@@ -45,11 +39,9 @@ struct FocusModePage: View {
             return
         }
         
-        // Find the incoming task closest to the current time
         let closestIncomingTask = taskItems.filter {
             Date() < $0.endDate && !$0.isNextTaskClicked
         }.min(by: { $0.endDate.timeIntervalSinceNow < $1.startDate.timeIntervalSinceNow })
-        
         
         guard let incomingTask = closestIncomingTask else {
             hasNoTasks = true
@@ -57,59 +49,63 @@ struct FocusModePage: View {
         }
         
         taskItem = incomingTask
-        
         hasNoTasks = false
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Text(hasNoTasks ? "Focus Mode" : focusModeState.rawValue)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            
-                            Text(currentDate)
-                                .padding(.bottom)
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
+        GeometryReader { geometry in
+            ZStack(alignment: .top) {
+                Color.focoBackground.edgesIgnoringSafeArea(.all)
+                
+                VStack(spacing: 0) {
+                    // Header
+                    VStack {
+                        Text(hasNoTasks ? "Focus Mode" : focusModeState.rawValue)
+                            .font(.system(size: min(28, geometry.size.width * 0.07)))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Text(currentDate)
+                            .font(.system(size: min(14, geometry.size.width * 0.035)))
+                            .padding(.bottom, 5)
+                            .foregroundColor(.white)
                     }
+                    .frame(width: geometry.size.width)
                     .background(Color.focoPrimary)
                     
-                    if hasNoTasks {
-                        Spacer()
-                        ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.gray.opacity(0.2))
-                        Text("You have no incoming tasks")
-                        Spacer()
-                    } else {
-                        FocusModeView(taskItem: $taskItem, focusModeState: $focusModeState, refreshFunction: refreshPage)
+                    // Content
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            if hasNoTasks {
+                                Spacer(minLength: geometry.size.height * 0.2)
+                                ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.gray.opacity(0.2))
+                                    .frame(height: geometry.size.height * 0.3)
+                                Text("You have no incoming tasks")
+                                    .font(.system(size: min(18, geometry.size.width * 0.045)))
+                                Spacer()
+                            } else {
+                                FocusModeView(taskItem: $taskItem, focusModeState: $focusModeState, refreshFunction: refreshPage, geometry: geometry)
+                            }
+                        }
+                        .frame(minHeight: geometry.size.height - 100) // Adjust this value as needed
                     }
-                    
                 }
             }
-            .background(Color.focoBackground)
         }
-        .navigationBarHidden(true)
         .onAppear {
             refreshPage()
         }
-        
     }
 }
 
 struct FocusModeView: View {
-    
     @Binding var taskItem: TaskItem
     @Binding var focusModeState: FocusModeState
     let refreshFunction: () -> Void
+    let geometry: GeometryProxy
     
     @Environment(\.scenePhase) var scenePhase
-
+    
     @State var taskTimerStr: String = "00:00"
     @State var lastBackgroundTimestamp: Int = 0
     @State var isBackground: Bool = false
@@ -117,69 +113,59 @@ struct FocusModeView: View {
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var activityManager = FocoLiveActivityManager()
-    var hasNoTasks: Bool {
-        true
-    }
     
     var body: some View {
-        VStack {
-            
+        VStack(spacing: 5) {
             Text("Foco Time!")
-                .padding(.top, 12)
-                .padding(.bottom, 2)
+                .font(.system(size: min(18, geometry.size.width * 0.045)))
+                .padding(.top, 5)
             
             Text(taskItem.emoji + " " + taskItem.title)
-                .font(.title)
+                .font(.system(size: min(24, geometry.size.width * 0.06)))
                 .fontWeight(.bold)
-                .padding(.bottom, 2)
             
             Text(taskItem.getTimerangeStr())
+                .font(.system(size: min(14, geometry.size.width * 0.035)))
             
-            if focusModeState == .incoming {
-                ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
-            } else if focusModeState == .inProgress {
-                ImageStateSet(image: "FocoFocusInProgress", backgroundColor: Color.yellow.opacity(0.2))
-            } else if focusModeState == .accomplished {
-                ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.green.opacity(0.2))
-            } else if focusModeState == .failed {
-                ImageStateSet(image: "FocoFocusFailed", backgroundColor: Color.red.opacity(0.2))
+            Group {
+                if focusModeState == .incoming {
+                    ImageStateSet(image: "FocoFocusIncoming", backgroundColor: Color.focoPrimary.opacity(0.1))
+                } else if focusModeState == .inProgress {
+                    ImageStateSet(image: "FocoFocusInProgress", backgroundColor: Color.yellow.opacity(0.2))
+                } else if focusModeState == .accomplished {
+                    ImageStateSet(image: "FocoFocusAccomplished", backgroundColor: Color.green.opacity(0.2))
+                } else if focusModeState == .failed {
+                    ImageStateSet(image: "FocoFocusFailed", backgroundColor: Color.red.opacity(0.2))
+                }
             }
+            .frame(height: geometry.size.height * 0.25)
             
             Text(focusModeState == .incoming ? "Task Duration" : "Focus Timer")
-                .font(.caption)
-                .padding(.top, 10)
+                .font(.system(size: min(14, geometry.size.width * 0.035)))
+                .padding(.top, 5)
             
-            if focusModeState == .incoming {
-                Text(taskItem.getDurationStr())
-                    .font(.system(size: 70))
-                    .fontWeight(.bold)
-                    .padding(.bottom, 1)
-                    .opacity(0.7)
-            } else if focusModeState == .inProgress {
-                Text(taskTimerStr)
-                    .font(.system(size: 70))
-                    .fontWeight(.bold)
-                    .padding(.bottom, 1)
-                    .opacity(0.7)
-            } else {
-                Text("00:00")
-                    .font(.system(size: 70))
-                    .fontWeight(.bold)
-                    .padding(.bottom, 1)
-                    .opacity(0.7)
+            Group {
+                if focusModeState == .incoming {
+                    Text(taskItem.getDurationStr())
+                } else if focusModeState == .inProgress {
+                    Text(taskTimerStr)
+                } else {
+                    Text("00:00")
+                }
             }
+            .font(.system(size: min(60, geometry.size.width * 0.15)))
+            .fontWeight(.bold)
+            .opacity(0.7)
             
             if focusModeState == .incoming {
-                BottomStateIncoming(taskItem: $taskItem)
+                BottomStateIncoming(taskItem: $taskItem, geometry: geometry)
             } else if focusModeState == .inProgress {
-                BottomStateInProgress(taskItem: $taskItem)
+                BottomStateInProgress(taskItem: $taskItem, geometry: geometry)
             } else if focusModeState == .accomplished {
-                BottomStateAccomplished(taskItem: $taskItem, refreshFunction: refreshFunction)
+                BottomStateAccomplished(taskItem: $taskItem, refreshFunction: refreshFunction, geometry: geometry)
             } else if focusModeState == .failed {
-                BottomStateFailed(taskItem: $taskItem, refreshFunction: refreshFunction)
+                BottomStateFailed(taskItem: $taskItem, refreshFunction: refreshFunction, geometry: geometry)
             }
-            
-            Spacer()
         }
         .onAppear {
             focusModeState = taskItem.getFocusModeState()
@@ -210,14 +196,9 @@ struct FocusModeView: View {
     }
     
     func onTickSecond() {
-//        print("Tick second: \(Date()). isBackground: \(isBackground)")
         focusModeState = taskItem.getFocusModeState()
         taskTimerStr = taskItem.getDurationFromNowStr()
-        //        if isBackground {
-        //            activityManager.onTickSecond(taskItem: taskItem)
-        //        }
     }
-    
 }
 
 struct ImageStateSet: View {
@@ -228,20 +209,20 @@ struct ImageStateSet: View {
         Image(image)
             .resizable()
             .scaledToFit()
-            .frame(width: 200, height: 200)
-            .background(Circle().fill(backgroundColor).frame(width: 175, height: 175))
-            .padding(.top, 10)
+            .frame(maxWidth: 150, maxHeight: 150)
+            .background(Circle().fill(backgroundColor).frame(width: 130, height: 130))
+            .padding(.top, 5)
     }
 }
 
 struct BottomStateIncoming: View {
     @Binding var taskItem: TaskItem
     @State var taskTimerStr: String = "00:00"
+    let geometry: GeometryProxy
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        // Button: Start Now
         VStack {
             Button(action: {
                 taskItem.isStartedManually = true
@@ -257,11 +238,11 @@ struct BottomStateIncoming: View {
                 .cornerRadius(10)
             }
             Text("Task will start automatically in **\(taskTimerStr)**")
-                .font(.caption)
+                .font(.system(size: min(12, geometry.size.width * 0.03)))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-                .padding(.top, 8)
-                .padding(.horizontal, 60)
+                .padding(.top, 4)
+                .padding(.horizontal, 30)
         }
         .onReceive(timer) { t in
             onTickSecond()
@@ -270,18 +251,16 @@ struct BottomStateIncoming: View {
     
     func onTickSecond() {
         taskTimerStr = taskItem.getDurationUntilStartedStr()
-        print(taskItem.getDurationUntilStartedStr())
     }
-    
 }
 
 struct BottomStateInProgress: View {
     @Binding var taskItem: TaskItem
+    let geometry: GeometryProxy
     
     var body: some View {
-        // Button: Start Now
         VStack {
-            TimeDistractedView(taskItem: $taskItem)
+            TimeDistractedView(taskItem: $taskItem, geometry: geometry)
             
             HStack {
                 Button(action: {
@@ -308,99 +287,88 @@ struct BottomStateInProgress: View {
                 }
             }
             Text("Leaving this screen will turn on the Distraction Stopwatch")
-                .font(.caption)
+                .font(.system(size: min(12, geometry.size.width * 0.03)))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-                .padding(.top, 8)
-                .padding(.horizontal, 60)
+                .padding(.top, 4)
+                .padding(.horizontal, 30)
         }
     }
-    
 }
-
 
 struct BottomStateAccomplished: View {
     @Binding var taskItem: TaskItem
     let refreshFunction: () -> Void
+    let geometry: GeometryProxy
     
     var body: some View {
-        // Button: Start Now
         VStack {
-            TimeDistractedView(taskItem: $taskItem)
+            TimeDistractedView(taskItem: $taskItem, geometry: geometry)
             
-            HStack {
-                Button(action: {
-                    taskItem.isNextTaskClicked = true
-                    refreshFunction()
-                }) {
-                    HStack {
-                        Text("Next Task")
-                            .foregroundColor(.white)
-                    }
+            Button(action: {
+                taskItem.isNextTaskClicked = true
+                refreshFunction()
+            }) {
+                Text("Next Task")
+                    .foregroundColor(.white)
                     .padding()
                     .background(Color.focoPrimary)
                     .cornerRadius(10)
-                }
-                
             }
         }
     }
 }
 
-
 struct BottomStateFailed: View {
     @Binding var taskItem: TaskItem
     let refreshFunction: () -> Void
+    let geometry: GeometryProxy
     
     var body: some View {
-        // Button: Start Now
         VStack {
-            TimeDistractedView(taskItem: $taskItem)
+            TimeDistractedView(taskItem: $taskItem, geometry: geometry)
             
             HStack {
                 Button(action: {
                     taskItem.isNextTaskClicked = true
                     refreshFunction()
                 }) {
-                    HStack {
-                        Text("Next Task")
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .background(Color.focoPrimary)
-                    .cornerRadius(10)
+                    Text("Next Task")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.focoPrimary)
+                        .cornerRadius(10)
                 }
                 if !taskItem.isSurrender {
                     Button(action: {
                         taskItem.isDone = true
                     }) {
-                        HStack {
-                            Text("Mark as Done")
-                                .foregroundColor(.focoPrimary)
-                        }
-                        .padding()
-                        .background(.focoPrimary.opacity(0.1))
-                        .cornerRadius(10)
+                        Text("Mark as Done")
+                            .foregroundColor(.focoPrimary)
+                            .padding()
+                            .background(.focoPrimary.opacity(0.1))
+                            .cornerRadius(10)
                     }
                 }
-                
             }
-            
         }
     }
 }
 
-
 struct TimeDistractedView: View {
     @Binding var taskItem: TaskItem
+    let geometry: GeometryProxy
     
     var body: some View {
-        Text("Your time distracted")
-            .font(.caption)
-        Text(taskItem.getDistractionTimeStr())
-            .fontWeight(.bold)
-            .padding(.bottom)
-            .foregroundColor(getDistractionColor())
+        VStack {
+            Text("Your time distracted")
+                .font(.system(size: min(12, geometry.size.width * 0.03)))
+            Text(taskItem.getDistractionTimeStr())
+                .font(.system(size: min(16, geometry.size.width * 0.04)))
+                .fontWeight(.bold)
+                .padding(.bottom, 5)
+                .foregroundColor(getDistractionColor())
+        }
     }
     
     func getDistractionColor() -> Color {

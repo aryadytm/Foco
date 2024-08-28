@@ -39,12 +39,6 @@ struct TaskDetailPage: View {
                     DatePicker("Start Date", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
                     DatePicker("End Date", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
                 }
-                
-//                Section {
-//                    Toggle(isOn: $isDone) {
-//                        Text("Completed")
-//                    }
-//                }
 
                 if existingTaskId.isEmpty {
                     Section {
@@ -93,6 +87,7 @@ struct TaskDetailPage: View {
     
     func onExistingTaskItem() {
         let thisTask = self.getExistingTask()!
+        emoji = thisTask.emoji
         title = thisTask.title
         description = thisTask.desc
         startDate = thisTask.startDate
